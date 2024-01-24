@@ -8,29 +8,18 @@ public class Player : MonoBehaviour
     [SerializeField] private float playerHeight;
     [SerializeField] private float interactDistance;
     [SerializeField] private LayerMask countersLayerMask;
+    [SerializeField] private GameInput gameInput;
 
     private Vector3 lastInteractDir;
 
-    private void Update()
+    private void Start()
     {
-        HandleMovement();
-        HandleInteractions();
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
 
-    private void HandleInteractions()
+    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
-        Vector2 inputVector = new Vector2(0, 0);
-
-        if (Input.GetKey(KeyCode.W))
-            inputVector.y = 1;
-        if (Input.GetKey(KeyCode.S))
-            inputVector.y = -1;
-        if (Input.GetKey(KeyCode.A))
-            inputVector.x = -1;
-        if (Input.GetKey(KeyCode.D))
-            inputVector.x = 1;
-
-        inputVector = inputVector.normalized;
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
         Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
 
@@ -46,20 +35,33 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        HandleMovement();
+        HandleInteractions();
+    }
+
+    private void HandleInteractions()
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
+        Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero)
+            lastInteractDir = moveDir;
+
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
+        {
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+                //Interact
+            }
+        }
+    }
+
     private void HandleMovement()
     {
-        Vector2 inputVector = new Vector2(0, 0);
-
-        if (Input.GetKey(KeyCode.W))
-            inputVector.y = 1;
-        if (Input.GetKey(KeyCode.S))
-            inputVector.y = -1;
-        if (Input.GetKey(KeyCode.A))
-            inputVector.x = -1;
-        if (Input.GetKey(KeyCode.D))
-            inputVector.x = 1;
-
-        inputVector = inputVector.normalized;
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
         Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
         float moveDistance = moveSpeed * Time.deltaTime;
