@@ -6,7 +6,10 @@ public class ContainerCounter : BaseCounter
 
     public override void Interact(Player player)
     {
-        Transform ingredientTransform = Instantiate(ingredient.prefab);
-        ingredientTransform.GetComponent<IngredientObject>().SetIngredientObjectParent(player);
+        if (!player.HasIngredientObject())
+        {
+            Transform ingredientTransform = Instantiate(ingredient.prefab);
+            ingredientTransform.GetComponent<IngredientObject>().SetIngredientObjectParent(player);
+        }
     }
 }
