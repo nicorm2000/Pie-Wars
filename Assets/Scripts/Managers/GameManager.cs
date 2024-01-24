@@ -15,9 +15,11 @@ public class GameManager : MonoBehaviour
         GameOver
     }
 
+    [Header("Game Set Up")]
     [SerializeField] private float waitingToStartTimer;
     [SerializeField] private float countdownToStartTimer;
-    [SerializeField] private float gamePlayingTimer;
+    [SerializeField] private float gamePlayingTimerMax;
+    private float gamePlayingTimer;
 
     private GameState gameState;
 
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
                 if (countdownToStartTimer < 0f)
                 {
                     gameState = GameState.GamePlaying;
+                    gamePlayingTimer = gamePlayingTimerMax;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
@@ -74,8 +77,18 @@ public class GameManager : MonoBehaviour
         return gameState == GameState.CountdownToStart;
     }
 
+    public bool IsGameOver()
+    {
+        return gameState == GameState.GameOver;
+    }
+
     public float GetCountdownToStartTimer()
     {
         return countdownToStartTimer;
+    }
+
+    public float GetGamePlayingTimerNormalized()
+    {
+        return 1 - (gamePlayingTimer / gamePlayingTimerMax);
     }
 }

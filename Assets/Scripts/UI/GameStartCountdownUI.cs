@@ -1,10 +1,11 @@
+using TMPro;
 using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class GameStartCountdownUI : MonoBehaviour
 {
+    [Header("Game Start Countdown Set Up")]
     [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private string startText;
     [SerializeField] private float startTextDuration;
@@ -22,7 +23,7 @@ public class GameStartCountdownUI : MonoBehaviour
         {
             Show();
         }
-        else
+        else if (GameManager.Instance.IsGamePlaying())
         {
             StartCoroutine(StartText());
         }
