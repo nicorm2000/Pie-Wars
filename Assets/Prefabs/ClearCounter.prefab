@@ -27,12 +27,13 @@ Transform:
   m_GameObject: {fileID: 1067045565529621414}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.24, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8216812697743697670}
   - {fileID: 5999191113170270935}
+  - {fileID: 8489297056920710507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8597890519750736672
@@ -68,6 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6bbf31f0a86404bb2325273805ebd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  counterTopPoint: {fileID: 8489297056920710507}
+  ingredient: {fileID: 0}
 --- !u!1 &2471252776325294607
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,3 +284,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clearCounter: {fileID: 3223132143272362371}
   visualGameObject: {fileID: 2934529893974629886}
+--- !u!1 &7589842009957676735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8489297056920710507}
+  m_Layer: 6
+  m_Name: Counter Top Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8489297056920710507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7589842009957676735}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3677974808720898786}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
