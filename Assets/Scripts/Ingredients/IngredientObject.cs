@@ -4,35 +4,35 @@ public class IngredientObject : MonoBehaviour
 {
     [SerializeField] private IngredientsSO ingredientSO;
 
-    private ClearCounter clearCounter;
+    private IIngredientObjectParent ingredientObjectParent;
 
     public IngredientsSO GetIngredientObjectSO()
     {
         return ingredientSO;
     }
 
-    public void SetClearCounter(ClearCounter clearCounter)
+    public void SetIngredientObjectParent(IIngredientObjectParent ingredientObjectParent)
     {
-        if (this.clearCounter != null)
+        if (this.ingredientObjectParent != null)
         {
-            this.clearCounter.ClearIngredientObject();
+            this.ingredientObjectParent.ClearIngredientObject();
         }
         
-        this.clearCounter = clearCounter;
+        this.ingredientObjectParent = ingredientObjectParent;
 
-        if (clearCounter.HasIngredientObject())
+        if (ingredientObjectParent.HasIngredientObject())
         {
             Debug.LogError("Counter already has an ingredient");
         }
 
-        clearCounter.SetIngredientObject(this);
+        ingredientObjectParent.SetIngredientObject(this);
 
-        transform.parent = clearCounter.GetIngredientObjectFollowTranform();
+        transform.parent = ingredientObjectParent.GetIngredientObjectFollowTranform();
         transform.localPosition = Vector3.zero;
     }
 
-    public ClearCounter GetClearCounter()
+    public IIngredientObjectParent GetIngredientObjectParent()
     {
-        return clearCounter;
+        return ingredientObjectParent;
     }
 }

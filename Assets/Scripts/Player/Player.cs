@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IIngredientObjectParent
 {
     public static Player Instance { get; private set; }
 
@@ -18,9 +18,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float interactDistance;
     [SerializeField] private LayerMask countersLayerMask;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private Transform ingredientHoldPoint;
 
     private Vector3 lastInteractDir;
     private ClearCounter selectedCounter;
+    private IngredientObject ingredientObject;
 
     private void Awake()
     {
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
     {
         if (selectedCounter != null)
         {
-            selectedCounter.Interact();
+            selectedCounter.Interact(this);
         }
     }
 
@@ -126,5 +128,30 @@ public class Player : MonoBehaviour
         {
             selectedCounter = selectedCounter
         });
+    }
+
+    public Transform GetIngredientObjectFollowTranform()
+    {
+        return ingredientHoldPoint;
+    }
+
+    public void SetIngredientObject(IngredientObject ingredientObject)
+    {
+        this.ingredientObject = ingredientObject;
+    }
+
+    public IngredientObject GetIngredientObject()
+    {
+        return ingredientObject;
+    }
+
+    public void ClearIngredientObject()
+    {
+        ingredientObject = null;
+    }
+
+    public bool HasIngredientObject()
+    {
+        return ingredientObject != null;
     }
 }

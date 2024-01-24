@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour
+public class ClearCounter : MonoBehaviour, IIngredientObjectParent
 {
     [SerializeField] private Transform counterTopPoint;
     [SerializeField] private IngredientsSO ingredient;
@@ -16,21 +16,22 @@ public class ClearCounter : MonoBehaviour
         {
             if (ingredientObject != null)
             {
-                ingredientObject.SetClearCounter(secondClearCounter);
+                ingredientObject.SetIngredientObjectParent(secondClearCounter);
             }
         }
     }
 
-    public void Interact()
+    public void Interact(Player player)
     {
         if (ingredientObject == null)
         {
             Transform ingredientTransform = Instantiate(ingredient.prefab, counterTopPoint);
-            ingredientTransform.GetComponent<IngredientObject>().SetClearCounter(this);
+            ingredientTransform.GetComponent<IngredientObject>().SetIngredientObjectParent(this);
         }
         else
         {
-            Debug.Log(ingredientObject.GetClearCounter());
+            //Give object to player
+            ingredientObject.SetIngredientObjectParent(player);
         }
     }
 
