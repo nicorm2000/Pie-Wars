@@ -11,6 +11,11 @@ public class BaseCounter : MonoBehaviour, IIngredientObjectParent
         Debug.LogError("BaseCounter.Interact()");
     }
 
+    public virtual void InteractAlternate(Player player)
+    {
+        Debug.LogError("BaseCounter.InteractAlternate()");
+    }
+
     public Transform GetIngredientObjectFollowTranform()
     {
         return counterTopPoint;

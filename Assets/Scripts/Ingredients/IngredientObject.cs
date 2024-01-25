@@ -35,4 +35,11 @@ public class IngredientObject : MonoBehaviour
     {
         return ingredientObjectParent;
     }
+
+    public void DestoySelf()
+    {
+        ingredientObjectParent.ClearIngredientObject();
+
+        Destroy(gameObject);
+    }
 }
