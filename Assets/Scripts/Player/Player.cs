@@ -5,6 +5,9 @@ public class Player : MonoBehaviour, IIngredientObjectParent
 {
     public static Player Instance { get; private set; }
 
+
+    public event EventHandler OnPickSomething;
+
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
@@ -20,6 +23,7 @@ public class Player : MonoBehaviour, IIngredientObjectParent
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Transform ingredientHoldPoint;
 
+    private bool isWalking;
     private Vector3 lastInteractDir;
     private BaseCounter selectedCounter;
     private IngredientObject ingredientObject;
@@ -41,6 +45,8 @@ public class Player : MonoBehaviour, IIngredientObjectParent
 
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
     {
+        if (!GameManager.Instance.IsGamePlaying()) return;
+
         if (selectedCounter != null)
         {
             selectedCounter.InteractAlternate(this);
@@ -49,6 +55,8 @@ public class Player : MonoBehaviour, IIngredientObjectParent
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
+        if (!GameManager.Instance.IsGamePlaying()) return;
+
         if (selectedCounter != null)
         {
             selectedCounter.Interact(this);
@@ -59,6 +67,11 @@ public class Player : MonoBehaviour, IIngredientObjectParent
     {
         HandleMovement();
         HandleInteractions();
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
     }
 
     private void HandleInteractions()
@@ -126,6 +139,8 @@ public class Player : MonoBehaviour, IIngredientObjectParent
         if (canMove)
             transform.position += moveDir * moveSpeed * Time.deltaTime;
 
+        isWalking = moveDir != Vector3.zero;
+
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
 
@@ -147,6 +162,11 @@ public class Player : MonoBehaviour, IIngredientObjectParent
     public void SetIngredientObject(IngredientObject ingredientObject)
     {
         this.ingredientObject = ingredientObject;
+
+        if (ingredientObject != null)
+        {
+            OnPickSomething?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public IngredientObject GetIngredientObject()

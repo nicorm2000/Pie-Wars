@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0bde0f0e7ab96043882fbe9df4521cf, type: 3}
+  m_Name: AudioClipsRefSO
+  m_EditorClassIdentifier: 
+  footSteps:
+  - {fileID: 8300000, guid: 4851d72d66974dc4ba065aa97de36707, type: 3}
+  - {fileID: 8300000, guid: e4d8caa8631927c48bfcfa6cac7b1c7e, type: 3}
+  - {fileID: 8300000, guid: 0e69a61b49302a943b7664a67fd82d9f, type: 3}
+  - {fileID: 8300000, guid: 038a4f1ea3163ce4fa9350f21f2bd218, type: 3}
+  objectDrop:
+  - {fileID: 8300000, guid: 1934e9e4c83f43f4a9bdb5637f8732e7, type: 3}
+  - {fileID: 8300000, guid: f0488c341969e4c478373faad526335a, type: 3}
+  - {fileID: 8300000, guid: d4056f484ed42da4082eec565961b65b, type: 3}
+  objectPickUp:
+  - {fileID: 8300000, guid: 6b71ba59efc5f1646846b1561e7d04ec, type: 3}
+  - {fileID: 8300000, guid: a1c4137a612735e48b657408bc4ee654, type: 3}
+  - {fileID: 8300000, guid: b4b01c35b7a9397458fe4d2ebe2083d7, type: 3}
+  trash:
+  - {fileID: 8300000, guid: 718975fb3120d744caf01a0bdc5c204a, type: 3}
+  - {fileID: 8300000, guid: f82d1753fea401548921f6c0693b14ce, type: 3}
+  stoveSizzle: {fileID: 8300000, guid: 748502dea95cd1843b1e3c1d39701c0f, type: 3}

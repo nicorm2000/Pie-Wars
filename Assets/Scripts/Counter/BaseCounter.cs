@@ -1,7 +1,15 @@
+using System;
 using UnityEngine;
 
 public class BaseCounter : MonoBehaviour, IIngredientObjectParent
 {
+    public static event EventHandler OnAnyObjectPlacedHere;
+
+    public static void ResetStaticData()
+    {
+        OnAnyObjectPlacedHere = null;
+    }
+
     [SerializeField] private Transform counterTopPoint;
 
     private IngredientObject ingredientObject;
@@ -24,6 +32,11 @@ public class BaseCounter : MonoBehaviour, IIngredientObjectParent
     public void SetIngredientObject(IngredientObject ingredientObject)
     {
         this.ingredientObject = ingredientObject;
+
+        if (ingredientObject != null) 
+        {
+            OnAnyObjectPlacedHere?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public IngredientObject GetIngredientObject()
