@@ -2,13 +2,19 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    private const string PLAYER_PREFS_SFX_VOLUME = "SXVolume";
+
     public static SoundManager Instance { get; private set; }
 
     [SerializeField] private AudioRefsSO audioRefsSO;
 
+    private float volume = 1f;
+
     private void Awake()
     {
         Instance = this;
+
+        volume = PlayerPrefs.GetFloat(PLAYER_PREFS_SFX_VOLUME, 1f);
     }
 
     private void Start()
@@ -16,6 +22,13 @@ public class SoundManager : MonoBehaviour
         Player.Instance.OnPickSomething += Player_OnPickSomething;
         BaseCounter.OnAnyObjectPlacedHere += BaseCounter_OnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed += TrashCounter_OnAnyObjectTrashed;
+    }
+
+    private void OnDestroy()
+    {
+        Player.Instance.OnPickSomething -= Player_OnPickSomething;
+        BaseCounter.OnAnyObjectPlacedHere -= BaseCounter_OnAnyObjectPlacedHere;
+        TrashCounter.OnAnyObjectTrashed -= TrashCounter_OnAnyObjectTrashed;
     }
 
     private void TrashCounter_OnAnyObjectTrashed(object sender, System.EventArgs e)
@@ -45,8 +58,25 @@ public class SoundManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(audioClip, position, volume);
     }
 
-    public void PlayFootstepsSound(Vector3 position, float volume)
+    public void PlayFootstepsSound(Vector3 position, float volumeMultiplier)
     {
-        PlaySound(audioRefsSO.footSteps, position, volume);
+        PlaySound(audioRefsSO.footSteps, position, volumeMultiplier * volume);
+    }
+
+    public void ChangeVolume()
+    {
+        volume += .1f;
+        if (volume > 1f)
+        {
+            volume = 0f;
+        }
+
+        PlayerPrefs.SetFloat(PLAYER_PREFS_SFX_VOLUME, volume);
+        PlayerPrefs.Save();
+    }
+
+    public float GetVolume() 
+    {
+        return volume;
     }
 }

@@ -5,6 +5,6 @@ public interface IHasProgress
     public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
     public class OnProgressChangedEventArgs : EventArgs
     {
-        public float progressNnormalized;
+        public float progressNormalized;
     }
 }

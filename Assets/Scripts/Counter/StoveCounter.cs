@@ -45,7 +45,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                     OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                     {
-                        progressNnormalized = cookingTimer / cookingRecipeSO.cookingTimerMax
+                        progressNormalized = cookingTimer / cookingRecipeSO.cookingTimerMax
                     });
 
                     if (cookingTimer > cookingRecipeSO.cookingTimerMax)
@@ -70,7 +70,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                     OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                     {
-                        progressNnormalized = burningTimer / burningRecipeSO.burningTimerMax
+                        progressNormalized = burningTimer / burningRecipeSO.burningTimerMax
                     });
 
                     if (burningTimer > burningRecipeSO.burningTimerMax)
@@ -89,7 +89,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                         OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                         {
-                            progressNnormalized = 0f
+                            progressNormalized = 0f
                         });
                     }
                     break;
@@ -122,7 +122,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                     OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                     {
-                        progressNnormalized = cookingTimer / cookingRecipeSO.cookingTimerMax
+                        progressNormalized = cookingTimer / cookingRecipeSO.cookingTimerMax
                     });
                 }
             }
@@ -152,7 +152,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                 OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                 {
-                    progressNnormalized = 0f
+                    progressNormalized = 0f
                 });
             }
         }

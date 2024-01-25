@@ -5,11 +5,6 @@ public class BaseCounter : MonoBehaviour, IIngredientObjectParent
 {
     public static event EventHandler OnAnyObjectPlacedHere;
 
-    public static void ResetStaticData()
-    {
-        OnAnyObjectPlacedHere = null;
-    }
-
     [SerializeField] private Transform counterTopPoint;
 
     private IngredientObject ingredientObject;

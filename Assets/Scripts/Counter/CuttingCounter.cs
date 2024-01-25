@@ -30,7 +30,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
 
                     OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
                     {
-                        progressNnormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
+                        progressNormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
                     });
                 }
             }
@@ -63,7 +63,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
 
             OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
             {
-                progressNnormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
+                progressNormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
             });
 
             if (cuttingProgress >= cuttingRecipeSO.cuttingProgressMax)
