@@ -1,8 +1,17 @@
 using UnityEngine;
+using System;
 
 public class CuttingCounter : BaseCounter
 {
+    public event EventHandler<OnProgressChangedEventArgs> OnProgressChanged;
+    public class OnProgressChangedEventArgs : EventArgs
+    {
+        public float progressNnormalized;
+    }
+
     [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
+
+    private int cuttingProgress;
 
     public override void Interact(Player player)
     {
@@ -15,6 +24,14 @@ public class CuttingCounter : BaseCounter
                 {
                     //Player carrying sommething that can be cut
                     player.GetIngredientObject().SetIngredientObjectParent(this);
+                    cuttingProgress = 0;
+
+                    CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetIngredientObject().GetIngredientObjectSO());
+
+                    OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+                    {
+                        progressNnormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
+                    });
                 }
             }
             else
@@ -41,34 +58,55 @@ public class CuttingCounter : BaseCounter
     {
         if (HasIngredientObject() && HasRecipeWithInput(GetIngredientObject().GetIngredientObjectSO()))
         {
-            IngredientsSO outputIngredientsSO = GetOutputForInput(GetIngredientObject().GetIngredientObjectSO());
-            GetIngredientObject().DestoySelf();
+            cuttingProgress++;
+            CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetIngredientObject().GetIngredientObjectSO());
 
-            IngredientObject.SpawnIngredientObject(outputIngredientsSO, this);
+            OnProgressChanged?.Invoke(this, new OnProgressChangedEventArgs
+            {
+                progressNnormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
+            });
+
+            if (cuttingProgress >= cuttingRecipeSO.cuttingProgressMax)
+            {
+                IngredientsSO outputIngredientsSO = GetOutputForInput(GetIngredientObject().GetIngredientObjectSO());
+
+                GetIngredientObject().DestoySelf();
+
+                IngredientObject.SpawnIngredientObject(outputIngredientsSO, this);
+            }
         }
     }
 
     private IngredientsSO GetOutputForInput(IngredientsSO inputIngredientSO)
     {
-        foreach (CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray)
+        CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(inputIngredientSO);
+
+        if (cuttingRecipeSO != null)
         {
-            if (cuttingRecipeSO.input == inputIngredientSO)
-            {
-                return cuttingRecipeSO.output;
-            }
+            return cuttingRecipeSO.output;
         }
-        return null;
+        else
+        {
+            return null;
+        }
     }
 
     private bool HasRecipeWithInput(IngredientsSO inputIngredientSO)
+    {
+        CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(inputIngredientSO);
+
+        return cuttingRecipeSO != null;
+    }
+
+    private CuttingRecipeSO GetCuttingRecipeSOWithInput(IngredientsSO inputIngredientSO)
     {
         foreach (CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray)
         {
             if (cuttingRecipeSO.input == inputIngredientSO)
             {
-                return true;
+                return cuttingRecipeSO;
             }
         }
-        return false;
+        return null;
     }
 }

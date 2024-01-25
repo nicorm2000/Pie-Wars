@@ -5,4 +5,5 @@ public class CuttingRecipeSO : ScriptableObject
 {
     public IngredientsSO input;
     public IngredientsSO output;
+    public int cuttingProgressMax;
 }
