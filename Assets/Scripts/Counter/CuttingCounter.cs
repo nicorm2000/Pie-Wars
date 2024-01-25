@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CuttingCounter : BaseCounter
 {
-    [SerializeField] private IngredientsSO ingredient;
+    [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
 
     public override void Interact(Player player)
     {
@@ -11,7 +11,11 @@ public class CuttingCounter : BaseCounter
             if (player.HasIngredientObject())
             {
                 //Player is carrying something
-                player.GetIngredientObject().SetIngredientObjectParent(this);
+                if (HasRecipeWithInput(player.GetIngredientObject().GetIngredientObjectSO()))
+                {
+                    //Player carrying sommething that can be cut
+                    player.GetIngredientObject().SetIngredientObjectParent(this);
+                }
             }
             else
             {
@@ -35,13 +39,36 @@ public class CuttingCounter : BaseCounter
 
     public override void InteractAlternate(Player player)
     {
-        if (HasIngredientObject())
+        if (HasIngredientObject() && HasRecipeWithInput(GetIngredientObject().GetIngredientObjectSO()))
         {
+            IngredientsSO outputIngredientsSO = GetOutputForInput(GetIngredientObject().GetIngredientObjectSO());
             GetIngredientObject().DestoySelf();
 
-            Transform ingredientTransform = Instantiate(ingredient.prefab);
-            Debug.Log(ingredientTransform);
-            ingredientTransform.GetComponent<IngredientObject>().SetIngredientObjectParent(this);
+            IngredientObject.SpawnIngredientObject(outputIngredientsSO, this);
         }
+    }
+
+    private IngredientsSO GetOutputForInput(IngredientsSO inputIngredientSO)
+    {
+        foreach (CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray)
+        {
+            if (cuttingRecipeSO.input == inputIngredientSO)
+            {
+                return cuttingRecipeSO.output;
+            }
+        }
+        return null;
+    }
+
+    private bool HasRecipeWithInput(IngredientsSO inputIngredientSO)
+    {
+        foreach (CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray)
+        {
+            if (cuttingRecipeSO.input == inputIngredientSO)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

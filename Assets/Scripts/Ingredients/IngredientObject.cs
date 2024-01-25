@@ -42,4 +42,13 @@ public class IngredientObject : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    public static IngredientObject SpawnIngredientObject(IngredientsSO ingredientsSO, IIngredientObjectParent ingredientObjectParent)
+    {
+        Transform ingredientTransform = Instantiate(ingredientsSO.prefab);
+        IngredientObject ingredientObject = ingredientTransform.GetComponent<IngredientObject>();
+        ingredientObject.SetIngredientObjectParent(ingredientObjectParent);
+
+        return ingredientObject;
+    }
 }
