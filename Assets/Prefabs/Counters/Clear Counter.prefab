@@ -83,6 +83,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3555897283518859131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4945835296035056174}
+  m_Layer: 0
+  m_Name: Visuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4945835296035056174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555897283518859131}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6348220882457062218}
+  m_Father: {fileID: 1904901423770296612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4282812625135139832
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +146,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1904901423770296612}
+  m_Father: {fileID: 4945835296035056174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6440964711752053928
 MeshFilter:
@@ -282,7 +314,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3677974808720898786, guid: 4c227a615ea81764e9e3fb47c7ece884,
         type: 3}
       insertIndex: 0
-      addedObject: {fileID: 6348220882457062218}
+      addedObject: {fileID: 4945835296035056174}
     - targetCorrespondingSourceObject: {fileID: 3677974808720898786, guid: 4c227a615ea81764e9e3fb47c7ece884,
         type: 3}
       insertIndex: 1
@@ -318,7 +350,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 6680335694043625133}
-  ingredient: {fileID: 0}
 --- !u!4 &6680335694043625133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8489297056920710507, guid: 4c227a615ea81764e9e3fb47c7ece884,
