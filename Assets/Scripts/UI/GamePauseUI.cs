@@ -19,6 +19,7 @@ public class GamePauseUI : MonoBehaviour
         });
         optionsButton.onClick.AddListener(() =>
         {
+            Hide();
             OptionsUI.Instance.Show();
         });
     }
