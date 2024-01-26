@@ -26,6 +26,18 @@ public class ClearCounter : BaseCounter
                     if (plateObject.TryAddIngredient(GetIngredientObject().GetIngredientObjectSO()))
                         GetIngredientObject().DestoySelf();
                 }
+                else
+                {
+                    //Player is Not Holding a plate but something else
+                    if(GetIngredientObject().TryGetPlate(out plateObject))
+                    {
+                        //Counter Has a plate
+                        if(plateObject.TryAddIngredient(player.GetIngredientObject().GetIngredientObjectSO()))
+                        {
+                            player.GetIngredientObject().DestoySelf();
+                        }
+                    }
+                }
             }
             else
             {
