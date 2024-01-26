@@ -43,6 +43,20 @@ public class IngredientObject : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public bool TryGetPlate(out PlateObject plateObject)
+    {
+        if (this is PlateObject)
+        {
+            plateObject = this as PlateObject;
+            return true;
+        }
+        else
+        {
+            plateObject = null;
+            return false;
+        }
+    }
+
     public static IngredientObject SpawnIngredientObject(IngredientsSO ingredientsSO, IIngredientObjectParent ingredientObjectParent)
     {
         Transform ingredientTransform = Instantiate(ingredientsSO.prefab);
