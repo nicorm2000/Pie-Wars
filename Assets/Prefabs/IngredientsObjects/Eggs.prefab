@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 178475724352462058}
   - component: {fileID: -508113302289643975}
-  - component: {fileID: 1196044560826320386}
   m_Layer: 7
   m_Name: Eggs
   m_TagString: Untagged
@@ -47,33 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientSO: {fileID: 11400000, guid: d2decaad042c483448f6bccd3f136902, type: 2}
---- !u!54 &1196044560826320386
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008654265672333471}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6707798310316463163
 GameObject:
   m_ObjectHideFlags: 0
