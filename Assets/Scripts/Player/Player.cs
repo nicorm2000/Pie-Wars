@@ -1,14 +1,17 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IIngredientObjectParent
 {
     public static Player Instance { get; private set; }
+
+
+    public event EventHandler OnPickSomething;
 
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounter;
+        public BaseCounter selectedCounter;
     }
 
     [SerializeField] private float moveSpeed;
@@ -18,9 +21,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float interactDistance;
     [SerializeField] private LayerMask countersLayerMask;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private Transform ingredientHoldPoint;
 
+    private bool isWalking;
     private Vector3 lastInteractDir;
-    private ClearCounter selectedCounter;
+    private BaseCounter selectedCounter;
+    private IngredientObject ingredientObject;
 
     private void Awake()
     {
@@ -34,13 +40,26 @@ public class Player : MonoBehaviour
     private void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+    }
+
+    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
+    {
+        if (!GameManager.Instance.IsGamePlaying()) return;
+
+        if (selectedCounter != null)
+        {
+            selectedCounter.InteractAlternate(this);
+        }
     }
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
+        if (!GameManager.Instance.IsGamePlaying()) return;
+
         if (selectedCounter != null)
         {
-            selectedCounter.Interact();
+            selectedCounter.Interact(this);
         }
     }
 
@@ -48,6 +67,11 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         HandleInteractions();
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
     }
 
     private void HandleInteractions()
@@ -61,11 +85,11 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
-            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
             {
-                if (clearCounter != selectedCounter)
+                if (baseCounter != selectedCounter)
                 {
-                    SetSelectedCounter(clearCounter);
+                    SetSelectedCounter(baseCounter);
                 }
             }
             else
@@ -90,7 +114,7 @@ public class Player : MonoBehaviour
         if (!canMove)
         {
             Vector3 moveDirX = new Vector3(moveDir.x, 0f, 0f);
-            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
+            canMove = (moveDir.x < -0.5f || moveDir.x > 0.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
 
             if (canMove)
             {
@@ -99,7 +123,7 @@ public class Player : MonoBehaviour
             else
             {
                 Vector3 moveDirZ = new Vector3(0f, 0f, moveDir.z);
-                canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
+                canMove = (moveDir.z < -0.5f || moveDir.z > 0.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
 
                 if (canMove)
                 {
@@ -115,10 +139,12 @@ public class Player : MonoBehaviour
         if (canMove)
             transform.position += moveDir * moveSpeed * Time.deltaTime;
 
+        isWalking = moveDir != Vector3.zero;
+
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
 
-    private void SetSelectedCounter(ClearCounter selectedCounter)
+    private void SetSelectedCounter(BaseCounter selectedCounter)
     {
         this.selectedCounter = selectedCounter;
 
@@ -126,5 +152,35 @@ public class Player : MonoBehaviour
         {
             selectedCounter = selectedCounter
         });
+    }
+
+    public Transform GetIngredientObjectFollowTranform()
+    {
+        return ingredientHoldPoint;
+    }
+
+    public void SetIngredientObject(IngredientObject ingredientObject)
+    {
+        this.ingredientObject = ingredientObject;
+
+        if (ingredientObject != null)
+        {
+            OnPickSomething?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public IngredientObject GetIngredientObject()
+    {
+        return ingredientObject;
+    }
+
+    public void ClearIngredientObject()
+    {
+        ingredientObject = null;
+    }
+
+    public bool HasIngredientObject()
+    {
+        return ingredientObject != null;
     }
 }

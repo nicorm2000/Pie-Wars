@@ -1,14 +1,31 @@
-using UnityEngine;
-
-public class ClearCounter : MonoBehaviour
+public class ClearCounter : BaseCounter
 {
-    [SerializeField] private Transform counterTopPoint;
-    [SerializeField] private IngredientsSO ingredient;
-
-    public void Interact()
+    public override void Interact(Player player)
     {
-        Debug.Log("Interact");
-        Transform ingredientTransform = Instantiate(ingredient.prefab, counterTopPoint);
-        ingredientTransform.localPosition = Vector3.zero;
+        if (!HasIngredientObject())
+        { 
+            if (player.HasIngredientObject())
+            {
+                //Player is carrying something
+                player.GetIngredientObject().SetIngredientObjectParent(this);
+            }
+            else
+            {
+                //Player has nothing in hands
+            }
+        }
+        else
+        { 
+            //There is an ingredient here
+            if (player.HasIngredientObject())
+            {
+                //Player is carrying somehting
+            }
+            else 
+            {
+                //Player is not carrying anything
+                GetIngredientObject().SetIngredientObjectParent(player);
+            }
+        }
     }
 }
