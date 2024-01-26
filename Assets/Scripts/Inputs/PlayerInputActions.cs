@@ -66,7 +66,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Throw"",
                     ""type"": ""Button"",
-                    ""id"": ""ff4642bb-7c99-4deb-9c19-a34d021b1083"",
+                    ""id"": ""0f49be69-a953-4d02-bc5d-7ed986954a3a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -208,7 +208,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c3ae8024-7f82-47ab-ba0a-4131b1d9e707"",
+                    ""id"": ""ce65dc1c-8929-46c5-a6c3-a79d31d1d4fb"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
