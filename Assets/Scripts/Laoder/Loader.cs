@@ -6,6 +6,8 @@ public static class Loader
     { 
         MainMenu,
         Game,
+        nicorm, //until game scene isn't broken from going to it form main menu
+        SelectPlayers,
         Credits,
         Loading
     }
