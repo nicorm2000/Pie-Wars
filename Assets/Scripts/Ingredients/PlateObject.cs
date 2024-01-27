@@ -35,4 +35,9 @@ public class PlateObject : IngredientObject
         });
         return true;
     }
+
+    public bool GetPieStatus()
+    {
+        return isCompleted;
+    }
 }
