@@ -65,7 +65,8 @@ public class Player : MonoBehaviour, IIngredientObjectParent
 
     private void Update()
     {
-        HandleMovement();
+        //HandleMovement();
+        HandleMovement2();
         HandleInteractions();
     }
 
@@ -144,6 +145,33 @@ public class Player : MonoBehaviour, IIngredientObjectParent
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
 
+
+    [SerializeField] private float playerStopDistance;
+    private void HandleMovement2()
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
+        bool isHit = Physics.Raycast(transform.position, moveDir, playerStopDistance);
+
+        if (isHit)
+        {
+
+            moveDir = Vector3.zero;
+        }
+
+        transform.position += moveDir * moveSpeed * Time.deltaTime;
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+    }
+    private void HandleMovement3()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
+        if (rb.velocity.magnitude < 10f)
+            rb.AddForce(moveDir * moveSpeed, ForceMode.Impulse);
+        //rb.velocity = moveDir * moveSpeed;
+    }
     private void SetSelectedCounter(BaseCounter selectedCounter)
     {
         this.selectedCounter = selectedCounter;
