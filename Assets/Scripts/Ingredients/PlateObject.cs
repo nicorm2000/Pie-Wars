@@ -41,4 +41,12 @@ public class PlateObject : IngredientObject
     {
         return isCompleted;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!isCompleted)
+            return;
+
+        //If collides with enemy player, sums points
+    }
 }

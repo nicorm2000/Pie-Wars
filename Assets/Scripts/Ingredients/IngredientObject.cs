@@ -79,13 +79,4 @@ public class IngredientObject : MonoBehaviour
 
         return ingredientObject;
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //if (!isFlying)
-        //    return;
-
-        //if (collision.gameObject.CompareTag("Counter"))
-        //    collision.gameObject.GetComponent<ClearCounter>().ReceiveItem(this.gameObject);
-    }
 }
