@@ -41,6 +41,7 @@ public class ThrowingSystem : MonoBehaviour
         itemRb.isKinematic = false;
         itemRb.AddForce((transform.forward + new Vector3(0, 0.25f, 0)) * timeHeld * forceMultiplier, ForceMode.Impulse);
         itemToThrow.transform.parent = null;
+        GetComponent<Player>().SetIngredientObject(null);
         isCharging = false;
         timeHeld = 0;
     }
