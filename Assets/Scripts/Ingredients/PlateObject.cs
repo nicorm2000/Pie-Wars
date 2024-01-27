@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlateObject : IngredientObject
 {
     public event EventHandler<OnIngredientAddedArgs> OnIngredientAdded;
+
+    int playerThrower;
     public class OnIngredientAddedArgs : EventArgs
     {
         public IngredientsSO ingredientSO;
@@ -42,11 +44,37 @@ public class PlateObject : IngredientObject
         return isCompleted;
     }
 
+    public void SetPlayerThrower(int player)
+    {
+        playerThrower = player;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (!isCompleted)
             return;
 
-        //If collides with enemy player, sums points
+        if (playerThrower % 2 != 0)
+        {
+            //Is thrown by team red
+            //if (collision.gameObject.GetComponent<Player>().GetPlayerNumber() % 2 == 0)
+            //{
+            //    //Hitted an Enemy
+            //}
+            //else
+            //{
+            //    //Hitted an Ally
+            //}
+        }
+        else
+        {
+            //if (collision.gameObject.GetComponent<Player>().GetPlayerNumber() % 2 == 0)
+            //{
+            //    //Hitted an Ally
+            //}
+            //else
+            //{
+            //    //Hitted an Enemy
+            //}
+        }
     }
 }

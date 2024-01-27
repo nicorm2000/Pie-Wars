@@ -45,7 +45,12 @@ public class ThrowingSystem : MonoBehaviour
         if (itemToThrow.TryGetComponent<IngredientObject>(out IngredientObject ingredientObject))
             ingredientObject.isFlying = true;
         if (itemToThrow.TryGetComponent<PlateObject>(out PlateObject plateObject))
+        {
+            //Add GetPlayerNumber to Player.cs
+            //plateObject.SetPlayerThrower(GetComponent<Player>().GetPlayerNumber());
+            plateObject.SetPlayerThrower(1);
             plateObject.isFlying = true;
+        }
 
         itemToThrow.GetComponent<UnityEngine.Collider>().isTrigger = false;
 
@@ -68,6 +73,4 @@ public class ThrowingSystem : MonoBehaviour
         gameObject = null;
         return false;
     }
-
-
 }
