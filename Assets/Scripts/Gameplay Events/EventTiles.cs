@@ -38,7 +38,6 @@ public class EventTiles : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Player player = other.GetComponent<Player>();
-        Debug.Log(player);
         if (player != null)
         {
             player.TriggerStateChange(debuffDuration);
