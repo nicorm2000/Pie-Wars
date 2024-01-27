@@ -15,6 +15,7 @@ public class PlateObject : IngredientObject
     private List<IngredientsSO> ingredientObjectSOList = new List<IngredientsSO>();
     private bool isCompleted = false;
     private int pieIngredientsQuantity = 3;
+
     public bool TryAddIngredient(IngredientsSO ingredient)
     {
         if (!validIngredients.Contains(ingredient))

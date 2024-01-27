@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 178475724352462058}
   - component: {fileID: -508113302289643975}
   - component: {fileID: -4737073375423955448}
+  - component: {fileID: 413981048167591637}
   m_Layer: 7
   m_Name: Eggs
   m_TagString: Untagged
@@ -47,6 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientSO: {fileID: 11400000, guid: d2decaad042c483448f6bccd3f136902, type: 2}
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
+  isFlying: 0
 --- !u!54 &-4737073375423955448
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -74,6 +79,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &413981048167591637
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008654265672333471}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6707798310316463163
 GameObject:
   m_ObjectHideFlags: 0

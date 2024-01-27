@@ -41,6 +41,14 @@ public class ThrowingSystem : MonoBehaviour
         itemRb.isKinematic = false;
         itemRb.AddForce((transform.forward + new Vector3(0, 0.25f, 0)) * timeHeld * forceMultiplier, ForceMode.Impulse);
         itemToThrow.transform.parent = null;
+
+        if (itemToThrow.TryGetComponent<IngredientObject>(out IngredientObject ingredientObject))
+            ingredientObject.isFlying = true;
+        if (itemToThrow.TryGetComponent<PlateObject>(out PlateObject plateObject))
+            plateObject.isFlying = true;
+
+        itemToThrow.GetComponent<UnityEngine.Collider>().isTrigger = false;
+
         GetComponent<Player>().SetIngredientObject(null);
         isCharging = false;
         timeHeld = 0;

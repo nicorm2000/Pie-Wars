@@ -6988,6 +6988,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clear Counter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2858575283988895840, guid: 6b567ab176841fd478e94de81982a1d6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Counter
+      objectReference: {fileID: 0}
     - target: {fileID: 5645996995824413377, guid: 6b567ab176841fd478e94de81982a1d6,
         type: 3}
       propertyPath: ingredient
@@ -7061,6 +7066,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Clear Counter (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858575283988895840, guid: 6b567ab176841fd478e94de81982a1d6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Counter
       objectReference: {fileID: 0}
     - target: {fileID: 5645996995824413377, guid: 6b567ab176841fd478e94de81982a1d6,
         type: 3}
@@ -7580,7 +7590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemToThrow: {fileID: 0}
   gameInput: {fileID: 1822554953}
-  forceMultiplier: 5
+  forceMultiplier: 12.5
   timeHeld: 0
 --- !u!1 &1360142097
 GameObject:
@@ -10609,6 +10619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Clear Counter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858575283988895840, guid: 6b567ab176841fd478e94de81982a1d6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Counter
       objectReference: {fileID: 0}
     - target: {fileID: 5645996995824413377, guid: 6b567ab176841fd478e94de81982a1d6,
         type: 3}

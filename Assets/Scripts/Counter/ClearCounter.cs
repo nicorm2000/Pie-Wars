@@ -7,6 +7,8 @@ public class ClearCounter : BaseCounter
             if (player.HasIngredientObject())
             {
                 //Player is carrying something
+                player.GetIngredientObject().GetComponent<UnityEngine.Rigidbody>().isKinematic = true;
+                player.GetIngredientObject().GetComponent<UnityEngine.Collider>().isTrigger = true;
                 player.GetIngredientObject().SetIngredientObjectParent(this);
             }
             else
@@ -29,10 +31,10 @@ public class ClearCounter : BaseCounter
                 else
                 {
                     //Player is Not Holding a plate but something else
-                    if(GetIngredientObject().TryGetPlate(out plateObject))
+                    if (GetIngredientObject().TryGetPlate(out plateObject))
                     {
                         //Counter Has a plate
-                        if(plateObject.TryAddIngredient(player.GetIngredientObject().GetIngredientObjectSO()))
+                        if (plateObject.TryAddIngredient(player.GetIngredientObject().GetIngredientObjectSO()))
                         {
                             player.GetIngredientObject().DestoySelf();
                         }
@@ -43,6 +45,37 @@ public class ClearCounter : BaseCounter
             {
                 //Player is not carrying anything
                 GetIngredientObject().SetIngredientObjectParent(player);
+            }
+        }
+    }
+    public void ReceiveItem(UnityEngine.GameObject gameObject)
+    {
+        if (!HasIngredientObject())
+        {
+            gameObject.GetComponent<UnityEngine.Rigidbody>().isKinematic = true;
+            gameObject.GetComponent<UnityEngine.Collider>().isTrigger = true;
+            if (gameObject.TryGetComponent<IngredientObject>(out IngredientObject ingredient))
+            {
+                ingredient.SetIngredientObjectParent(this);
+                ingredient.isFlying = false;
+            }
+            if (gameObject.TryGetComponent<PlateObject>(out PlateObject plate))
+            {
+                plate.SetIngredientObjectParent(this);
+                plate.isFlying = false;
+            }
+        }
+        else
+        {
+            //Player is Not Holding a plate but something else
+            if (GetIngredientObject().TryGetPlate(out PlateObject plateObject))
+            {
+                //Counter Has a plate
+                gameObject.TryGetComponent<IngredientObject>(out IngredientObject ingredient);
+                if (plateObject.TryAddIngredient(ingredient.GetIngredientObjectSO()))
+                {
+                    ingredient.DestoySelf();
+                }
             }
         }
     }

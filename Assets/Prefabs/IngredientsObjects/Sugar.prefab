@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7093020220349446886}
   - component: {fileID: 2248220748785617981}
   - component: {fileID: 3855630229747398189}
+  - component: {fileID: 432032944478219269}
   m_Layer: 7
   m_Name: Sugar
   m_TagString: Untagged
@@ -47,6 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientSO: {fileID: 11400000, guid: 3d2cb8e7f2a14914ca9b3aab1302fe2d, type: 2}
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
+  isFlying: 0
 --- !u!54 &3855630229747398189
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -74,6 +79,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &432032944478219269
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118432432428658561}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8549468274164799211
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,8 +4,22 @@ public class IngredientObject : MonoBehaviour
 {
     [SerializeField] private IngredientsSO ingredientSO;
 
+    [SerializeField] private LayerMask layer;
     private IIngredientObjectParent ingredientObjectParent;
+    public bool isFlying;
+    [SerializeField] float rayDistance = 2;
 
+    private void Update()
+    {
+        if (isFlying)
+        {
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayDistance, layer))
+            {
+                if (hit.transform.gameObject.GetComponent<ClearCounter>() != null)
+                    hit.transform.gameObject.GetComponent<ClearCounter>().ReceiveItem(this.gameObject);
+            }
+        }
+    }
     public IngredientsSO GetIngredientObjectSO()
     {
         return ingredientSO;
@@ -17,7 +31,7 @@ public class IngredientObject : MonoBehaviour
         {
             this.ingredientObjectParent.ClearIngredientObject();
         }
-        
+
         this.ingredientObjectParent = ingredientObjectParent;
 
         if (ingredientObjectParent.HasIngredientObject())
@@ -64,5 +78,14 @@ public class IngredientObject : MonoBehaviour
         ingredientObject.SetIngredientObjectParent(ingredientObjectParent);
 
         return ingredientObject;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //if (!isFlying)
+        //    return;
+
+        //if (collision.gameObject.CompareTag("Counter"))
+        //    collision.gameObject.GetComponent<ClearCounter>().ReceiveItem(this.gameObject);
     }
 }
