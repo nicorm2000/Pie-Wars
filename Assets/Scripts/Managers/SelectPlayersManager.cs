@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SelectPlayersManager : MonoBehaviour
 {
@@ -9,10 +11,12 @@ public class SelectPlayersManager : MonoBehaviour
     [SerializeField] private Transform[] holders1v1 = null;
     [SerializeField] private Transform[] holders2v2 = null;
     [SerializeField] private GameObject playerPrefab = null;
-    [SerializeField] private KeyCode[] keyCodes = null;
+    [SerializeField] private PLAYER_INPUT[] inputs = null;
 
     private int playersReady = 0;
     private int playersToPlay = 0;
+
+    private List<PlayerInput> playerInputs = new List<PlayerInput>();
 
     private void Start()
     {
@@ -23,20 +27,40 @@ public class SelectPlayersManager : MonoBehaviour
     {
         playersToPlay = select1v1 ? holders1v1.Length : holders2v2.Length;
 
+        GameManager.GameData.DefineAmountOfPlayers(playersToPlay);
+
         for (int i = 0; i < playersToPlay; i++)
         {
+            PlayerInput p;
+
+            if (inputs[i] == PLAYER_INPUT.GAMEPAD)
+            {
+                p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.all[i - 2]);                
+            }
+            else
+            {
+                p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
+            }
+
+            p.SwitchCurrentActionMap("Player" + ((int)inputs[i] - 1 == 0 ? "" : (int)inputs[i] - 1));
+            playerInputs.Add(p);
             Transform holder = select1v1 ? holders1v1[i] : holders2v2[i];
-            GameObject player = Instantiate(playerPrefab, holder);
-            player.GetComponentInChildren<SelectStateUI>().Init(OnSelectPlayer, keyCodes[i]);
+            p.gameObject.transform.SetParent(holder);
+            p.gameObject.transform.localPosition = Vector3.zero;
+            p.gameObject.transform.localRotation = Quaternion.identity;
+
+            p.GetComponentInChildren<SelectStateUI>().Init(OnSelectPlayer, i, inputs[i], p);
         }
     }
 
-    private void OnSelectPlayer()
+    private void OnSelectPlayer(int index, PLAYER_INPUT playerInput)
     {
         if (playersReady == 0)
         {
             selectPlayersUI.TunOnPlayBtn();
         }
+
+        GameManager.GameData.AddPlayerInput(index, playerInput, playerInputs[index]);
 
         playersReady++;
     }

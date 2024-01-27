@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +10,10 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnStateChanged;
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
+
+    private static GameData gameData = new GameData();
+
+    public static GameData GameData => gameData;
 
     private enum GameState
     {
@@ -20,22 +26,70 @@ public class GameManager : MonoBehaviour
     [Header("Game Set Up")]
     [SerializeField] private float countdownToStartTimer;
     [SerializeField] private float gamePlayingTimerMax;
+    [SerializeField] private GameObject playerPrefab = null;
 
     private float gamePlayingTimer;
     private bool isGamePaused;
     private GameState gameState;
 
     private void Awake()
-    {
-        Instance = this;
+    {        
+        if (Instance != null && Instance != this)
+        { 
+            DestroyImmediate(gameObject);
+            return;
+        }
+        else 
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            gameState = GameState.WaitingToStart;
 
-        gameState = GameState.WaitingToStart;
+            SceneManager.sceneLoaded += 
+                (scene, mode) => 
+                {
+                    if (scene.name == Loader.Scene.nicorm.ToString())
+                    {
+                        InitializeGameplay();
+                    }
+                };
+        }
     }
 
-    private void Start()
+    private void InitializeGameplay()
     {
-        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
-        GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
+        SpawnPlayers();
+
+        GameInput.OnPauseAction += GameInput_OnPauseAction;
+    }
+
+    private void SpawnPlayers()
+    {
+        PLAYER_INPUT[] playersInputsType = gameData.GetPlayersInputsType();
+        Transform[] spawnPoints = FindObjectOfType<SpawnPointsManager>().SpawnPoints;
+
+        for (int i = 0; i < playersInputsType.Length; i++)
+        {
+            PlayerInput p;
+
+            if (playersInputsType[i] == PLAYER_INPUT.GAMEPAD)
+            {
+                p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.all[i - 2]);
+            }
+            else
+            {
+                p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
+            }
+
+            p.SwitchCurrentActionMap("Player" + ((int)playersInputsType[i] - 1 == 0 ? "" : (int)playersInputsType[i] - 1));
+            p.transform.position = spawnPoints[i].position;
+            p.transform.rotation = spawnPoints[i].rotation;
+
+            GameInput gi = p.GetComponent<GameInput>();
+
+            gi.OnInteractAction += GameInput_OnInteractAction;
+            gi.SetInputType(playersInputsType[i]);
+        }
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)

@@ -19,14 +19,14 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        Player.Instance.OnPickSomething += Player_OnPickSomething;
+        Player.OnPickSomething += Player_OnPickSomething;
         BaseCounter.OnAnyObjectPlacedHere += BaseCounter_OnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed += TrashCounter_OnAnyObjectTrashed;
     }
 
     private void OnDestroy()
     {
-        Player.Instance.OnPickSomething -= Player_OnPickSomething;
+        Player.OnPickSomething -= Player_OnPickSomething;
         BaseCounter.OnAnyObjectPlacedHere -= BaseCounter_OnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed -= TrashCounter_OnAnyObjectTrashed;
     }
@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
 
     private void Player_OnPickSomething(object sender, System.EventArgs e)
     {
-        PlaySound(audioRefsSO.objectPickUp, Player.Instance.transform.position);
+        PlaySound(audioRefsSO.objectPickUp, Vector3.zero);
     }
 
     private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)

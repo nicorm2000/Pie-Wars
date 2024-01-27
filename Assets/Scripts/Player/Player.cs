@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IIngredientObjectParent
 {
-    public static Player Instance { get; private set; }
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
-    public event EventHandler OnPickSomething;
+    public static event EventHandler OnPickSomething;
 
-    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public static event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
         public BaseCounter selectedCounter;
@@ -34,15 +33,6 @@ public class Player : MonoBehaviour, IIngredientObjectParent
     private BaseCounter selectedCounter;
     private IngredientObject ingredientObject;
     public Rigidbody rb;
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Debug.LogError("More than 1 Player Instance");
-        }
-        Instance = this;
-    }
 
     private void Start()
     {
