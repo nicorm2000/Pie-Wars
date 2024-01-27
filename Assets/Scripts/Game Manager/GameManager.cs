@@ -70,25 +70,32 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < playersInputsType.Length; i++)
         {
-            PlayerInput p;
-
-            if (playersInputsType[i] == PLAYER_INPUT.GAMEPAD)
+            if (playersInputsType[i] == PLAYER_INPUT.UNDEFINED)
             {
-                p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.all[i - 2]);
+                //Instantiate bot
             }
             else
             {
-                p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
-            }
+                PlayerInput p;
 
-            p.SwitchCurrentActionMap("Player" + ((int)playersInputsType[i] - 1 == 0 ? "" : (int)playersInputsType[i] - 1));
-            p.transform.position = spawnPoints[i].position;
-            p.transform.rotation = spawnPoints[i].rotation;
+                if (playersInputsType[i] == PLAYER_INPUT.GAMEPAD)
+                {
+                    p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.all[i - 2]);
+                }
+                else
+                {
+                    p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
+                }
 
-            GameInput gi = p.GetComponent<GameInput>();
+                p.SwitchCurrentActionMap("Player" + ((int)playersInputsType[i] - 1 == 0 ? "" : (int)playersInputsType[i] - 1));
+                p.transform.position = spawnPoints[i].position;
+                p.transform.rotation = spawnPoints[i].rotation;
 
-            gi.OnInteractAction += GameInput_OnInteractAction;
-            gi.SetInputType(playersInputsType[i]);
+                GameInput gi = p.GetComponent<GameInput>();
+
+                gi.OnInteractAction += GameInput_OnInteractAction;
+                gi.SetInputType(playersInputsType[i]);
+            }            
         }
     }
 
