@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5224253367969755557}
   - component: {fileID: 2022596099416483410}
   - component: {fileID: 3751341310494339713}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Melted Sugar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

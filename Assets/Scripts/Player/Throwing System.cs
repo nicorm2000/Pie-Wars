@@ -26,12 +26,10 @@ public class ThrowingSystem : MonoBehaviour
 
     void OnThrowPerformed(object sender, System.EventArgs e)
     {
-        itemToThrow = GetThrowableChild();
-
-        if (itemToThrow == null)
+        if (TryGetThrowableChild(out itemToThrow))
+            isCharging = true;
+        else
             return;
-
-        isCharging = true;
     }
 
     void OnThrowCanceled(object sender, System.EventArgs e)
@@ -47,15 +45,20 @@ public class ThrowingSystem : MonoBehaviour
         timeHeld = 0;
     }
 
-    GameObject GetThrowableChild()
+    bool TryGetThrowableChild(out GameObject gameObject)
     {
         Transform[] children = transform.GetComponentsInChildren<Transform>();
         foreach (Transform child in children)
         {
             if (child.gameObject.layer == 7)
-                return child.gameObject;
+            {
+                gameObject = child.gameObject;
+                return true;
+            }
         }
-
-        return null;
+        gameObject = null;
+        return false;
     }
+
+
 }

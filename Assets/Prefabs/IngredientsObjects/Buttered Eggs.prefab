@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4199908675571647809}
   - component: {fileID: 5535761913111418304}
   - component: {fileID: -1171163358130983851}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Buttered Eggs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
