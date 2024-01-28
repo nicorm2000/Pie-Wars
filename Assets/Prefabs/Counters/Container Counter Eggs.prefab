@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 4583633342542960543, guid: 0fc273996a307934e9d8aef2df3b4957,
         type: 3}
       propertyPath: m_Name
-      value: Container Counter Variant Eggs
+      value: Container Counter Eggs
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
