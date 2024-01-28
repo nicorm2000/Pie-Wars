@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GamePlayingClockUI : MonoBehaviour
 {
     [Header("Game Playing Clock UI Set Up")]
     [SerializeField] private Image timerImage;
-
+    [SerializeField] private TextMeshProUGUI blueTeam;
+    [SerializeField] private TextMeshProUGUI redTeam;
     private void Start()
     {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
@@ -29,6 +31,8 @@ public class GamePlayingClockUI : MonoBehaviour
     private void Update()
     {
         timerImage.fillAmount = GameManager.Instance.GetGamePlayingTimerNormalized();
+        blueTeam.text  = GameManager.Instance.blueTeamPoints.ToString();
+        redTeam.text = GameManager.Instance.redTeamPoints.ToString();
     }
 
     private void Show()
