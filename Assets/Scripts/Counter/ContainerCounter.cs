@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ContainerCounter : BaseCounter
 {
-    [SerializeField] private IngredientsSO ingredient;
+    [SerializeField] public IngredientsSO ingredient;
 
     public override void Interact(IIngredientObjectParent player)
     {
