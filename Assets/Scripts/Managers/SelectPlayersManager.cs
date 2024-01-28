@@ -43,6 +43,8 @@ public class SelectPlayersManager : MonoBehaviour
             p.gameObject.transform.localRotation = Quaternion.identity;
 
             p.GetComponentInChildren<SelectStateUI>().Init(OnSelectPlayer, i, inputs[i], p);
+
+            p.GetComponentInChildren<PlayerSkinManager>().ChangeMaterial(GameManager.Instance.Skins[i]);
         }
     }
 

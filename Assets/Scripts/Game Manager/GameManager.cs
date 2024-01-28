@@ -6,14 +6,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    private static GameData gameData = new GameData();
 
     public event EventHandler OnStateChanged;
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
 
-    private static GameData gameData = new GameData();
-
-    public static GameData GameData => gameData;
 
     private enum GameState
     {
@@ -27,10 +25,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float countdownToStartTimer;
     [SerializeField] private float gamePlayingTimerMax;
     [SerializeField] private GameObject playerPrefab = null;
+    [Header("Player skins")]
+    [SerializeField] private Material[] skins = null;
 
     private float gamePlayingTimer;
     private bool isGamePaused;
     private GameState gameState;
+
+    public static GameData GameData => gameData;
+    public Material[] Skins => skins;
 
     private void Awake()
     {        
@@ -72,23 +75,30 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < playersInputsType.Length; i++)
         {
+            GameObject player;
+
             if (playersInputsType[i] == PLAYER_INPUT.UNDEFINED)
             {
-                //Instantiate bot
+                //Instanciar bot, por ahora instancio un npc, pero esto es un patch, reemplazar por el prefabdel bot despues
+                player = Instantiate(playerPrefab);
             }
             else
             {
                 PlayerInput p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
-
                 p.SwitchCurrentActionMap("Player" + ((int)playersInputsType[i] - 1 == 0 ? "" : (int)playersInputsType[i] - 1));
-                p.transform.position = spawnPoints[i].position;
-                p.transform.rotation = spawnPoints[i].rotation;
+                
 
                 GameInput gi = p.GetComponent<GameInput>();
 
                 gi.OnInteractAction += GameInput_OnInteractAction;
                 gi.SetInputType(playersInputsType[i]);
-            }            
+                
+                player = p.gameObject;
+            }
+
+            player.transform.position = spawnPoints[i].position;
+            player.transform.rotation = spawnPoints[i].rotation;
+            player.GetComponentInChildren<PlayerSkinManager>().ChangeMaterial(skins[i]);
         }
     }
 
