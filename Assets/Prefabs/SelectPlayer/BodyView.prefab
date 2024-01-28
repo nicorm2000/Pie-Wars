@@ -210,60 +210,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2424022944668921598, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+    - target: {fileID: 2237638923005532827, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Pitch
+      value: 0.04
       objectReference: {fileID: 0}
-    - target: {fileID: 6583392372192545176, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+    - target: {fileID: 2237638923005532827, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_Volume
+      value: 0.708
       objectReference: {fileID: 0}
-    - target: {fileID: 6857313582062528929, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+    - target: {fileID: 3694673436205569439, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
-      propertyPath: m_fontSize
-      value: 150
+      propertyPath: m_Volume
+      value: 0.708
       objectReference: {fileID: 0}
-    - target: {fileID: 6857313582062528929, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+    - target: {fileID: 5540615130521790076, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
-      propertyPath: m_margin.x
-      value: 56.24109
+      propertyPath: m_Pitch
+      value: 0.69
       objectReference: {fileID: 0}
-    - target: {fileID: 6857313582062528929, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+    - target: {fileID: 5540615130521790076, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
-      propertyPath: m_margin.z
-      value: 56.301697
+      propertyPath: m_Volume
+      value: 0.832
       objectReference: {fileID: 0}
-    - target: {fileID: 6857313582062528929, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+    - target: {fileID: 6351261970101945016, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
-      propertyPath: m_fontSizeMax
-      value: 150
+      propertyPath: m_Pitch
+      value: 0.48
       objectReference: {fileID: 0}
-    - target: {fileID: 6857313582062528929, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+    - target: {fileID: 6351261970101945016, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
+      propertyPath: Priority
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351261970101945016, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.745
       objectReference: {fileID: 0}
     - target: {fileID: 8377640971759951326, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
         type: 3}
       propertyPath: m_Name
       value: SelectPlayerUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 9131845513129536011, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9131845513129536011, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9131845513129536011, guid: 5a0cc79db2c8e1e40b86efa88ad4808e,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
