@@ -4,7 +4,7 @@ public class ContainerCounter : BaseCounter
 {
     [SerializeField] private IngredientsSO ingredient;
 
-    public override void Interact(Player player)
+    public override void Interact(IIngredientObjectParent player)
     {
         if (!player.HasIngredientObject())
         {

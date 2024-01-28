@@ -14,7 +14,7 @@ public class PlateObject : IngredientObject
     }
 
     [SerializeField] private List<IngredientsSO> validIngredients;
-    private List<IngredientsSO> ingredientObjectSOList = new List<IngredientsSO>();
+    public List<IngredientsSO> ingredientObjectSOList = new List<IngredientsSO>();
     private bool isCompleted = false;
     private int pieIngredientsQuantity = 3;
 

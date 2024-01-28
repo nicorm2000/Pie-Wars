@@ -13,7 +13,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
 
     private int cuttingProgress;
 
-    public override void Interact(Player player)
+    public override void Interact(IIngredientObjectParent player)
     {
         if (!HasIngredientObject())
         {
@@ -60,7 +60,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
         }
     }
 
-    public override void InteractAlternate(Player player)
+    public override void InteractAlternate(IIngredientObjectParent player)
     {
         if (HasIngredientObject() && HasRecipeWithInput(GetIngredientObject().GetIngredientObjectSO()))
         {

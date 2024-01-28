@@ -99,7 +99,7 @@ public class StoveCounter : BaseCounter, IHasProgress
         }
     }
 
-    public override void Interact(Player player)
+    public override void Interact(IIngredientObjectParent player)
     {
         if (!HasIngredientObject())
         {

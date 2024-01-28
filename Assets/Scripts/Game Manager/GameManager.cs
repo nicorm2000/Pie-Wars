@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
             SceneManager.sceneLoaded += 
                 (scene, mode) => 
                 {
-                    if (scene.name == Loader.Scene.nicorm.ToString())
+                    if (scene.name == Loader.Scene.Level.ToString())
                     {
                         InitializeGameplay();
                     }

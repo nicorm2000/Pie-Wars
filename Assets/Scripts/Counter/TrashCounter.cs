@@ -4,7 +4,7 @@ public class TrashCounter : BaseCounter
 {
     public static event EventHandler OnAnyObjectTrashed;
 
-    public override void Interact(Player player)
+    public override void Interact(IIngredientObjectParent player)
     {
         if (player.HasIngredientObject())
         {

@@ -5,10 +5,10 @@ public static class Loader
     public enum Scene
     { 
         MainMenu,
-        Game,
-        nicorm, //until game scene isn't broken from going to it form main menu
-        Level, //Scene With the Level Layout.
         SelectPlayers,
+        Game,
+        Level, //Scene With the Level Layout.
+        nicorm, //until game scene isn't broken from going to it form main menu
         Credits,
         Loading
     }
