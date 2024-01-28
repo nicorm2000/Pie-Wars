@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using System.Collections;
 using System.Linq;
 
 namespace Pie_Wars.Logic.IA
@@ -84,26 +83,28 @@ namespace Pie_Wars.Logic.IA
     {
         [SerializeField] FSM.FSM fsm = new FSM.FSM();
 
-        [SerializeField] flags currentFlag = flags.onIdle;
+        //[SerializeField] flags currentFlag = flags.onIdle;
 
         [SerializeField] float speed = 1;
 
         [SerializeField] float interactDistance = 1;
 
 
-        [SerializeField] Order order = Order.cook;
+        //[SerializeField] Order order = Order.cook;
 
-        [SerializeField] Transform placeToGo = null;
+        //[SerializeField] Transform placeToGo = null;
 
-        [SerializeField] IngredientsSO masa, especial,platino = null;
+        [SerializeField] IngredientsSO masa, especial = null;
 
         [SerializeField] ContainerCounter[] allContainersCounter = null;
         
         [SerializeField] ClearCounter[] allClearConteiners = null;
 
-        [SerializeField] StoveCounter[] stoves = null; 
+        [SerializeField] StoveCounter[] stoves = null;
 
+        [SerializeField] PlatesCounter platesCounter = null;
 
+        private int platesAvailable = 0;
 
 
         [SerializeField] BaseCounter targetCounter = null;
@@ -115,13 +116,24 @@ namespace Pie_Wars.Logic.IA
         public event EventHandler OnPickSomething;
 
         public PlateObject ActualPlato = null;
+
+        public LayerMask collidersNotPass = new LayerMask();
         private void Start()
         {
+            platesCounter.OnPlateSpawned += (a,b) => { platesAvailable++; };
+            platesCounter.OnPlateRemoved += (a,b) => { platesAvailable--; };
+
+            void GetPlateConteiner()
+            {
+                targetCounter = platesCounter;
+            }
+
             void GetContainerCounter(string name)
             {
+
                 for (int i = 0; i < allContainersCounter.Length; i++)
                 {
-                    if (allContainersCounter[i].GetIngredientObject().name == name)
+                    if (allContainersCounter[i].ingredient.objectName == name)
                     {
                         targetCounter = allContainersCounter[i];
                         break;
@@ -131,11 +143,7 @@ namespace Pie_Wars.Logic.IA
 
             void GetContainerHeven()
             {
-                targetCounter = allContainersCounter.FirstOrDefault();
-                //for (int i = 0; i < stoves.Length; i++)
-                //{
-                //    break;
-                //}
+                targetCounter = stoves.FirstOrDefault();
             }
             
             ClearCounter GetSomeFreeClearConteiner()
@@ -166,15 +174,11 @@ namespace Pie_Wars.Logic.IA
 
             fsm.SetRelation(state.idle, flags.onGoToFindPlateAtConteiner, state.moveToFindPlateAtConteiner);
             //buscar plato en el contenedor.
-            void StartFindPlateConteiner()
-            {
-                GetContainerCounter(platino.objectName);
-            }
 
             fsm.AddState(state.moveToFindPlateAtConteiner,
-                StartFindPlateConteiner,
-                () => MoveUpdate(targetCounter.transform, flags.onGetPlate),
-                ()=> targetCounter.Interact(this));
+                ()=> GetPlateConteiner(),
+            () => { if (platesAvailable > 0) MoveUpdate(targetCounter.transform, flags.onGetPlate); },
+                ()=> { targetCounter.Interact(this); ActualPlato = GetIngredientObject() as PlateObject; });
 
             fsm.SetRelation(state.moveToFindPlateAtConteiner, flags.onGetPlate, state.moveToLeavePlateOnFreeCounter);
             //deja el plato en el contenedor.
@@ -199,6 +203,17 @@ namespace Pie_Wars.Logic.IA
                     fsm.SetFlag(flags.onGoToIddle);
                     return;
                 }
+                for (int i = 0; i < allClearConteiners.Length; i++)
+                {
+                    if (allClearConteiners[i].GetIngredientObject() == ActualPlato)
+                    {
+                        targetCounter = allClearConteiners[i];
+                        Debug.Log("voy a dejar algo " + item + " en"+ ActualPlato);
+                        return;
+                    }
+
+                }
+
 
                 for (int i = 0; i < ActualPlato.ingredientObjectSOList.Count; i++)
                 {
@@ -211,8 +226,8 @@ namespace Pie_Wars.Logic.IA
             }
 
             fsm.AddState(state.moveToLeaveMasaAtPlate,
-                () => StartFindPlato(masa.objectName),
-                () => MoveUpdate(ActualPlato?.transform, flags.onMoveToFindItemSpecial),
+                () => { StartFindPlato(masa.objectName); },
+                () => MoveUpdate(ActualPlato.transform, flags.onMoveToFindItemSpecial),
                 () => targetCounter.Interact(this));
 
             fsm.SetRelation(state.moveToLeaveMasaAtPlate, flags.onMoveToFindItemSpecial, state.moveToFindItemEspecial);
@@ -249,7 +264,12 @@ namespace Pie_Wars.Logic.IA
             void Dance_and_waite_cook()
             {
                 transform.Rotate(Vector3.up, 2);
-                if ((targetCounter as StoveCounter).IsCooked())
+                StoveCounter hornillo = targetCounter as StoveCounter;
+
+                if (hornillo.IsIddle())
+                    fsm.SetFlag(flags.onIdle);
+
+                if ((hornillo).IsCooked())
                 {
                     targetCounter.Interact(this);
                     fsm.SetFlag(flags.onGetRedyPie);
@@ -263,9 +283,10 @@ namespace Pie_Wars.Logic.IA
 
             //tirar el pie.
             fsm.SetRelation(state.waitingCooking, flags.onGetRedyPie, state.moveToLeaveThePieInCounter);
+            fsm.SetRelation(state.waitingCooking, flags.onIdle, state.idle);
             
             fsm.AddState(state.moveToLeaveThePieInCounter,
-                () => GetSomeFreeClearConteiner(),
+                () => targetCounter = GetSomeFreeClearConteiner(),
                 () => MoveUpdate(targetCounter.transform, flags.onIdle),
                 () => { targetCounter.Interact(this); }
                 );
@@ -275,39 +296,47 @@ namespace Pie_Wars.Logic.IA
             void MoveUpdate(Transform where,flags endflag)
             {
                 Transform self = this.transform;
-                Vector3 target = where.position + where.forward;
+                Vector3 target = new Vector3(where.position.x,0,where.position.z);
 
                 target.y = 0;
 
                 self.LookAt(target);
 
-                Vector3 frontFrw = transform.position + transform.forward;
+                Vector3 frontFrw = transform.position;
 
-                if (Physics.CheckBox(frontFrw,Vector3.one * 0.5f))
+                if (Physics.CheckBox(frontFrw,Vector3.one * 0.5f,Quaternion.identity, collidersNotPass))
                 {
-                    Vector3 frontFrwR = transform.position + transform.forward + transform.right;
-
-                    Vector3 frontFrwL = transform.position + transform.forward - transform.right;
-
-                    if (Physics.CheckBox(frontFrwR, Vector3.one * 0.5f))
+                    Vector3 frontFrwR = transform.position  + transform.right;
+                
+                    Vector3 frontFrwL = transform.position  - transform.right;
+                
+                    if (Physics.CheckBox(frontFrwR, Vector3.one * 0.5f,Quaternion.identity, collidersNotPass))
                     {
                         self.LookAt(frontFrwL);
                     }
-                    else if (Physics.CheckBox(frontFrwR, Vector3.one * 0.5f))
+                    else if (Physics.CheckBox(frontFrwL, Vector3.one * 0.5f,Quaternion.identity, collidersNotPass))
                     {
                         self.LookAt(frontFrwR);
                     }
                 }
 
-                transform.position += transform.forward * speed * Time.deltaTime;
+                Vector3 sum = new Vector3(transform.forward.x, 0, transform.forward.z);
+
+                transform.position += sum * speed * Time.deltaTime;
 
                 if (Vector3.Distance(self.position, target) < interactDistance)
                 {
-                    Debug.Log("llege"); fsm.SetFlag(endflag);
+                    Debug.Log("llege a " + where.name + " y ahora me setee en: " + endflag.ToString()); ; fsm.SetFlag(endflag);
                 }
             }
 
             fsm.SetCurrentStateForced(state.idle);
+
+            if (HasIngredientObject())
+            {
+                ClearIngredientObject();
+            }
+            fsm.SetFlag(flags.onGoToFindPlateAtConteiner);
         }
         private void Update()
         {
@@ -358,7 +387,6 @@ namespace Pie_Wars.Logic.IA.FSM
     public class FSM
     {
         public state currentStateIndex = 0;
-        public int LastStateIndex = 0;
         Dictionary<state, State> states = new Dictionary<state, State>();
         private state[,] relations = null;
 

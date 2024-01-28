@@ -251,4 +251,8 @@ public class StoveCounter : BaseCounter, IHasProgress
     {
         return cookingState == CookingState.Cooked;
     }
+    public bool IsIddle()
+    {
+        return cookingState == CookingState.Idle;
+    }
 }

@@ -10,6 +10,8 @@ public class SelectStateUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txtPressToSelect = null;
     [SerializeField] private GameObject pressToSelectView = null;
     [SerializeField] private GameObject confirmTick = null;
+    [SerializeField] private AudioSource spinSound = null;
+    [SerializeField] private AudioSource successSound = null;
 
     private Action<int, PLAYER_INPUT> onSelect = null;
     private PLAYER_INPUT playerInput = default;
@@ -38,6 +40,7 @@ public class SelectStateUI : MonoBehaviour
 
             if (input.y > 0)
             {
+                spinSound.Play();
                 pressToSelectView.GetComponent<Animator>().SetTrigger("TurnOff");
             }
 
@@ -49,9 +52,10 @@ public class SelectStateUI : MonoBehaviour
     {
         pressToSelectView.SetActive(!status);
         confirmTick.SetActive(status);
-
+        
         if (status)
         {
+            successSound.Play();
             onSelect.Invoke(index, playerInput);
         }
     }
