@@ -67,6 +67,9 @@ public class PlateObject : IngredientObject
         Debug.Log("Collided");
         if (playerThrower % 2 != 0)
         {
+            if (collision.gameObject.GetComponent<Player>() == null)
+                return;
+
             //Is thrown by team blue
             if (collision.gameObject.GetComponent<Player>().playerNumber % 2 == 0)
             {
