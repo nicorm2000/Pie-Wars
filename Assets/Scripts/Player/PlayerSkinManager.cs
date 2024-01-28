@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class PlayerSkinManager : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer mesh = null;
+    [SerializeField] private MeshRenderer[] meshes = null;
 
     public void ChangeMaterial(Material material)
     {
-        mesh.material = material;
+        for (int i = 0; i < meshes.Length; i++)
+        {
+            meshes[i].material = material;
+        }        
     }
 }
