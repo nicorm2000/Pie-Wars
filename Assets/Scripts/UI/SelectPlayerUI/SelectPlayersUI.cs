@@ -31,7 +31,7 @@ public class SelectPlayersUI : MonoBehaviour
 
         btnPlay.onClick.AddListener(() => 
         {
-            Loader.Load(Loader.Scene.nicorm);
+            Loader.Load(Loader.Scene.Level);
         });
 
         btnPlay.gameObject.SetActive(false);

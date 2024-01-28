@@ -7,6 +7,7 @@ public static class Loader
         MainMenu,
         Game,
         nicorm, //until game scene isn't broken from going to it form main menu
+        Level, //Scene With the Level Layout.
         SelectPlayers,
         Credits,
         Loading
