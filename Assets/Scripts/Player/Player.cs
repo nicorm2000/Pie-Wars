@@ -65,12 +65,12 @@ public class Player : MonoBehaviour, IIngredientObjectParent
     {
         //HandleMovement();
         //HandleMovement2();
-        HandleInteractions();
     }
 
     private void FixedUpdate()
     {
         HandleMovement3();
+        HandleInteractions();
     }
 
     public bool IsWalking()
@@ -84,11 +84,9 @@ public class Player : MonoBehaviour, IIngredientObjectParent
 
         Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
 
-        if (moveDir != Vector3.zero)
-            lastInteractDir = moveDir;
-
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
+            Debug.Log(raycastHit.transform.gameObject.name);
             if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
             {
                 if (baseCounter != selectedCounter)
@@ -191,11 +189,13 @@ public class Player : MonoBehaviour, IIngredientObjectParent
         {
             rb.AddForce(velocityChange, ForceMode.VelocityChange);
         }
-        if (moveDir != Vector3.zero)
-        {
-            Quaternion newRotation = Quaternion.LookRotation(moveDir);
-            rb.MoveRotation(Quaternion.Lerp(rb.rotation, newRotation, rotateSpeed * Time.fixedDeltaTime));
-        }
+
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        //if (moveDir != Vector3.zero)
+        //{
+        //    Quaternion newRotation = Quaternion.LookRotation(moveDir);
+        //    rb.MoveRotation(Quaternion.Lerp(rb.rotation, newRotation, rotateSpeed * Time.fixedDeltaTime));
+        //}
     }
 
     public void TriggerStateChange(float time)

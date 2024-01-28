@@ -1,5 +1,5 @@
 using System;
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -34,6 +34,7 @@ public class SelectPlayersUI : MonoBehaviour
             Loader.Load(Loader.Scene.Level);
         });
 
+        btnConfirm.gameObject.SetActive(false);
         btnPlay.gameObject.SetActive(false);
     }
 
@@ -46,8 +47,15 @@ public class SelectPlayersUI : MonoBehaviour
     {
         bool select1v1 = toggle1v1.IsSelected;
 
-        onSetPlayersSelect.Invoke(select1v1);
+        btnConfirm.interactable = false;
 
-        holderPartySelectionUI.SetActive(false);
+        StartCoroutine(ExecuteWithDelay());
+
+        IEnumerator ExecuteWithDelay()
+        {
+            yield return new WaitForSeconds(0.3f);
+            onSetPlayersSelect.Invoke(select1v1);
+            holderPartySelectionUI.SetActive(false);
+        }
     }
 }
