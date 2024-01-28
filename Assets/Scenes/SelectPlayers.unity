@@ -2550,6 +2550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blueTeamPoints: 0
   redTeamPoints: 0
+  winnerTeam: 2
   countdownToStartTimer: 3
   gamePlayingTimerMax: 180
   playerPrefab: {fileID: 4729430948260966300, guid: 3e946e38aa5049a4e957a474cdd2f5e9,
@@ -2766,8 +2767,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3007,7 +3008,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 5469101779377713029, guid: ece27ba9b1740434c97cabc9dcebaa87,
     type: 3}
   inputs1v1: 0100000002000000
-  inputs2v2: 01000000030000000200000004000000
+  inputs2v2: 01000000020000000300000004000000
 --- !u!1 &2029777955
 GameObject:
   m_ObjectHideFlags: 0
