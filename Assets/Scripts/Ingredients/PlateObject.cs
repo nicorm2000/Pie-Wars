@@ -47,16 +47,20 @@ public class PlateObject : IngredientObject
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isCompleted)
+        if (!isFlying)
             return;
+        int scoreSum = 1;
+        if (isCompleted)
+            scoreSum = 5;
 
+        Debug.Log("Collided");
         if (playerThrower % 2 != 0)
         {
             //Is thrown by team blue
             if (collision.gameObject.GetComponent<Player>().playerNumber % 2 == 0)
             {
                 //Hitted an Enemy
-                GameManager.Instance.AddPoints(GameManager.Team.Blue, 1);
+                GameManager.Instance.AddPoints(GameManager.Team.Blue, scoreSum);
             }
             else
             {
@@ -69,7 +73,7 @@ public class PlateObject : IngredientObject
             if (collision.gameObject.GetComponent<Player>().playerNumber % 2 != 0)
             {
                 //Hitted an Enemy
-                GameManager.Instance.AddPoints(GameManager.Team.Red, 1);
+                GameManager.Instance.AddPoints(GameManager.Team.Red, scoreSum);
             }
             else
             {
