@@ -28,7 +28,7 @@ public class PlateObject : IngredientObject
             return false;
 
         ingredientObjectSOList.Add(ingredient);
-        
+
         OnIngredientAdded?.Invoke(this, new OnIngredientAddedArgs
         {
             ingredientSO = ingredient
@@ -49,7 +49,9 @@ public class PlateObject : IngredientObject
     {
         if (!isFlying)
             return;
+
         int scoreSum = 1;
+
         if (isCompleted)
             scoreSum = 5;
 
@@ -61,10 +63,11 @@ public class PlateObject : IngredientObject
             {
                 //Hitted an Enemy
                 GameManager.Instance.AddPoints(GameManager.Team.Blue, scoreSum);
+                this.DestoySelf();
             }
             else
             {
-                GameManager.Instance.AddPoints(GameManager.Team.Blue, -1);
+                //GameManager.Instance.AddPoints(GameManager.Team.Blue, -1);
                 //Hitted an Ally
             }
         }
@@ -74,12 +77,14 @@ public class PlateObject : IngredientObject
             {
                 //Hitted an Enemy
                 GameManager.Instance.AddPoints(GameManager.Team.Red, scoreSum);
+                this.DestoySelf();
             }
             else
             {
                 //Hitted an Ally
-                GameManager.Instance.AddPoints(GameManager.Team.Red, -1);
+                //GameManager.Instance.AddPoints(GameManager.Team.Red, -1);
             }
         }
+        //this.gameObject.layer = 9;
     }
 }

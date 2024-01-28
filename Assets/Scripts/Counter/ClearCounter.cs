@@ -58,11 +58,14 @@ public class ClearCounter : BaseCounter
             {
                 ingredient.SetIngredientObjectParent(this);
                 ingredient.isFlying = false;
+                ingredient.gameObject.layer = 7;
+
             }
             if (gameObject.TryGetComponent<PlateObject>(out PlateObject plate))
             {
                 plate.SetIngredientObjectParent(this);
                 plate.isFlying = false;
+                plate.gameObject.layer = 7;
             }
         }
         else
