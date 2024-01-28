@@ -76,16 +76,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                PlayerInput p;
-
-                if (playersInputsType[i] == PLAYER_INPUT.GAMEPAD)
-                {
-                    p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.all[i - 2]);
-                }
-                else
-                {
-                    p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
-                }
+                PlayerInput p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
 
                 p.SwitchCurrentActionMap("Player" + ((int)playersInputsType[i] - 1 == 0 ? "" : (int)playersInputsType[i] - 1));
                 p.transform.position = spawnPoints[i].position;
