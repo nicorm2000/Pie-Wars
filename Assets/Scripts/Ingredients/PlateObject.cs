@@ -15,8 +15,8 @@ public class PlateObject : IngredientObject
 
     [SerializeField] private List<IngredientsSO> validIngredients;
     public List<IngredientsSO> ingredientObjectSOList = new List<IngredientsSO>();
-    private bool isCompleted = false;
-    private int pieIngredientsQuantity = 3;
+    public bool isCompleted = false;
+    [SerializeField] public int pieIngredientsQuantity = 2;
 
     public bool TryAddIngredient(IngredientsSO ingredient)
     {
@@ -24,14 +24,11 @@ public class PlateObject : IngredientObject
             return false;
         if (ingredientObjectSOList.Contains(ingredient))
             return false;
+        if (ingredientObjectSOList.Count >= pieIngredientsQuantity)
+            return false;
 
         ingredientObjectSOList.Add(ingredient);
-        if (ingredientObjectSOList.Count == pieIngredientsQuantity)
-        {
-            isCompleted = true;
-            Debug.Log("Completed Pie");
-        }
-
+        
         OnIngredientAdded?.Invoke(this, new OnIngredientAddedArgs
         {
             ingredientSO = ingredient

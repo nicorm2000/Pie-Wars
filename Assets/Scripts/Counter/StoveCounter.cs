@@ -26,7 +26,8 @@ public class StoveCounter : BaseCounter, IHasProgress
     private float burningTimer;
     private CookingRecipeSO cookingRecipeSO;
     private BurningRecipeSO burningRecipeSO;
-
+    private PlateObject plateInput;
+    [SerializeField] private IngredientsSO pieDough;
     private void Start()
     {
         cookingState = CookingState.Idle;
@@ -106,24 +107,31 @@ public class StoveCounter : BaseCounter, IHasProgress
             if (player.HasIngredientObject())
             {
                 //Player is carrying something
-                if (HasRecipeWithInput(player.GetIngredientObject().GetIngredientObjectSO()))
+                //if (HasRecipeWithInput(player.GetIngredientObject().GetIngredientObjectSO()))
+                //{
+                //Player carrying sommething that can be cooked
+
+                if (player.GetIngredientObject().gameObject.TryGetComponent<PlateObject>(out plateInput))
                 {
-                    //Player carrying sommething that can be cooked
-                    player.GetIngredientObject().SetIngredientObjectParent(this);
-                    cookingRecipeSO = GetCookingRecipeSOWithInput(GetIngredientObject().GetIngredientObjectSO());
-
-                    cookingState = CookingState.Cooking;
-                    cookingTimer = 0f;
-
-                    OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+                    //Player is carrying a plate
+                    if (plateInput.ingredientObjectSOList.Contains(pieDough) && plateInput.ingredientObjectSOList.Count == plateInput.pieIngredientsQuantity)
                     {
-                        cookingState = cookingState
-                    });
+                        player.GetIngredientObject().SetIngredientObjectParent(this);
+                        cookingRecipeSO = GetCookingRecipeSOWithInput(GetIngredientObject().GetIngredientObjectSO());
 
-                    OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
-                    {
-                        progressNormalized = cookingTimer / cookingRecipeSO.cookingTimerMax
-                    });
+                        cookingState = CookingState.Cooking;
+                        cookingTimer = 0f;
+
+                        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+                        {
+                            cookingState = cookingState
+                        });
+
+                        OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+                        {
+                            progressNormalized = cookingTimer / cookingRecipeSO.cookingTimerMax
+                        });
+                    }
                 }
             }
             else
@@ -137,28 +145,36 @@ public class StoveCounter : BaseCounter, IHasProgress
             if (player.HasIngredientObject())
             {
                 //Player is carrying somehting
-                if (player.GetIngredientObject().TryGetPlate(out PlateObject plateObject))
-                {
-                    //Player is Holding a plate
-                    if (plateObject.TryAddIngredient(GetIngredientObject().GetIngredientObjectSO()))
-                        GetIngredientObject().DestoySelf();
+                //if (player.GetIngredientObject().TryGetPlate(out PlateObject plateObject))
+                //{
+                //    //Player is Holding a plate
+                //    if (plateObject.TryAddIngredient(GetIngredientObject().GetIngredientObjectSO()))
+                //        GetIngredientObject().DestoySelf();
 
-                    cookingState = CookingState.Idle;
+                //    cookingState = CookingState.Idle;
 
-                    OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
-                    {
-                        cookingState = cookingState
-                    });
+                //    OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+                //    {
+                //        cookingState = cookingState
+                //    });
 
-                    OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
-                    {
-                        progressNormalized = 0f
-                    });
-                }
+                //    OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+                //    {
+                //        progressNormalized = 0f
+                //    });
+                //}
             }
             else
             {
                 //Player is not carrying anything
+                if (cookingState == CookingState.Cooked)
+                {
+                    plateInput.isCompleted = true;
+                    Debug.Log("Finished Pie");
+                }
+                else
+                    Debug.Log("BurnedPie");
+
                 GetIngredientObject().SetIngredientObjectParent(player);
 
                 cookingState = CookingState.Idle;
@@ -176,6 +192,16 @@ public class StoveCounter : BaseCounter, IHasProgress
         }
     }
 
+    private IngredientObject TakePlateOut()
+    {
+        if (cookingState == CookingState.Cooked)
+        {
+            plateInput.isCompleted = true;
+            Debug.Log("Finished Pie");
+        }
+
+        return plateInput;
+    }
     private IngredientsSO GetOutputForInput(IngredientsSO inputIngredientSO)
     {
         CookingRecipeSO cookingRecipeSO = GetCookingRecipeSOWithInput(inputIngredientSO);
