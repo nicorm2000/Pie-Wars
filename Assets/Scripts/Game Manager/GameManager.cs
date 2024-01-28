@@ -66,7 +66,9 @@ public class GameManager : MonoBehaviour
     private void SpawnPlayers()
     {
         PLAYER_INPUT[] playersInputsType = gameData.GetPlayersInputsType();
-        Transform[] spawnPoints = FindObjectOfType<SpawnPointsManager>().SpawnPoints;
+
+        SpawnPointsManager spawnPointsManager = FindObjectOfType<SpawnPointsManager>();
+        Transform[] spawnPoints = playersInputsType.Length == 2 ? spawnPointsManager.SpawnPoints1v1 : spawnPointsManager.SpawnPoints2v2;
 
         for (int i = 0; i < playersInputsType.Length; i++)
         {
