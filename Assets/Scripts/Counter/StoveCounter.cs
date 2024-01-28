@@ -54,7 +54,10 @@ public class StoveCounter : BaseCounter, IHasProgress
                         //Cooked
                         GetIngredientObject().DestoySelf();
 
-                        IngredientObject.SpawnIngredientObject(cookingRecipeSO.output, this);
+                        plateInput.ChangePlateState();
+
+                        IngredientObject.SpawnIngredientObject(plateInput, this);
+
 
                         cookingState = CookingState.Cooked;
                         burningTimer = 0f;
@@ -79,7 +82,13 @@ public class StoveCounter : BaseCounter, IHasProgress
                         //Cooked
                         GetIngredientObject().DestoySelf();
 
-                        IngredientObject.SpawnIngredientObject(burningRecipeSO.output, this);
+                        IngredientObject ingredient = IngredientObject.SpawnIngredientObject(burningRecipeSO.output, this);
+                        PlateObject plateIngredient = ingredient.GetComponent<PlateObject>();
+
+                        if(plateIngredient)
+                        {
+                            plateIngredient.ChangePlateState();
+                        }
 
                         cookingState = CookingState.Burned;
 

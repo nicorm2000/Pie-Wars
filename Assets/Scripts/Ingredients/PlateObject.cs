@@ -8,6 +8,8 @@ public class PlateObject : IngredientObject
     public event EventHandler<OnIngredientAddedArgs> OnIngredientAdded;
 
     int playerThrower;
+
+    [SerializeField] private GameObject pieCompleto, plate;
     public class OnIngredientAddedArgs : EventArgs
     {
         public IngredientsSO ingredientSO;
@@ -18,6 +20,13 @@ public class PlateObject : IngredientObject
     public bool isCompleted = false;
     [SerializeField] public int pieIngredientsQuantity = 2;
 
+    public void ChangePlateState()
+    {
+        plate.SetActive(false);
+        pieCompleto.SetActive(true);
+        isCompleted = true;
+    }
+    
     public bool TryAddIngredient(IngredientsSO ingredient)
     {
         if (!validIngredients.Contains(ingredient))

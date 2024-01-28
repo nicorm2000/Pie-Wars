@@ -79,4 +79,13 @@ public class IngredientObject : MonoBehaviour
 
         return ingredientObject;
     }
+
+    public static IngredientObject SpawnIngredientObject(PlateObject ingredientsSO, IIngredientObjectParent ingredientObjectParent)
+    {
+        Transform ingredientTransform = Instantiate(ingredientsSO).transform;
+        IngredientObject ingredientObject = ingredientTransform.GetComponent<IngredientObject>();
+        ingredientObject.SetIngredientObjectParent(ingredientObjectParent);
+
+        return ingredientObject;
+    }
 }
