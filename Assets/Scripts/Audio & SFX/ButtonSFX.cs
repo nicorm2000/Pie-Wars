@@ -10,4 +10,9 @@ public class ButtonSFX : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         GetComponentInParent<Button>().onClick.AddListener(() => audioSource.Play());
     }
+
+    public void Callback()
+    {
+        audioSource.Play();
+    }
 }
