@@ -52,6 +52,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isFlying: 0
+  rayDistance: 2
 --- !u!54 &3855630229747398189
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,7 +141,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8549468274164799211}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -4481004889310748636, guid: 26c567b789a61f049afc8b422699242d, type: 3}
 --- !u!23 &3510189442748871385
 MeshRenderer:
   m_ObjectHideFlags: 0

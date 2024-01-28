@@ -52,6 +52,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isFlying: 0
+  rayDistance: 2
 --- !u!54 &3751341310494339713
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 295dbcbb1104f734fb9253abb29e250b, type: 2}
+  - {fileID: 2100000, guid: 49b6a6857a585fc47b5cdb10f88fa0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

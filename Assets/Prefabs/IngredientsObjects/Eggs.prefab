@@ -52,6 +52,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isFlying: 0
+  rayDistance: 2
 --- !u!54 &-4737073375423955448
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,7 +141,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6707798310316463163}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3122192835555308691
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e4163a0f6e5e30a4cbea1efd3c9e7c46, type: 2}
+  - {fileID: 2100000, guid: d0f9475bc3e935543a9564b65b6861d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
