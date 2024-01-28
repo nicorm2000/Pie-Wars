@@ -11,7 +11,7 @@ public class ButtonSFX : MonoBehaviour
         GetComponentInParent<Button>().onClick.AddListener(() => audioSource.Play());
     }
 
-    public void Callback()
+    public void Callback() //referenciado desde la escena
     {
         audioSource.Play();
     }

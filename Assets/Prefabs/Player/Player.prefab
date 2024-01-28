@@ -49,6 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be10ffae44ba75749ac5c6da54982c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSlipper: 0
+  isSlow: 0
+  moveSpeedMultiplier: 0
   moveSpeed: 7
   rotateSpeed: 10
   playerRadius: 0.7
@@ -59,7 +62,8 @@ MonoBehaviour:
     m_Bits: 64
   gameInput: {fileID: 0}
   ingredientHoldPoint: {fileID: 7700333462758795855}
-  playerStopDistance: 0
+  slipperyFactor: 0
+  rb: {fileID: 0}
 --- !u!114 &7568612140891693528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footstepTimerMax: 0.1
-  footstepVolume: 1
+  footstepVolume: 10
 --- !u!114 &3445003704420787207
 MonoBehaviour:
   m_ObjectHideFlags: 0
