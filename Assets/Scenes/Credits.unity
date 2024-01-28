@@ -779,7 +779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GERONIMO MICUCCI
+  m_text: JERONIMO MICUCCI
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50a2b10e210a2a046ad40f5479e1ec1f, type: 2}
   m_sharedMaterial: {fileID: -5794731601048223439, guid: 50a2b10e210a2a046ad40f5479e1ec1f,
