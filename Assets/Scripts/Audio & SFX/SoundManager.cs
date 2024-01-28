@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    [SerializeField] private AudioSource[] objectDrop;
+    [SerializeField] private AudioSource[] objectPickUp;
+    [SerializeField] private AudioSource[] trash;
+    [SerializeField] private AudioSource[] warning;
+
     private const string PLAYER_PREFS_SFX_VOLUME = "SXVolume";
 
     public static SoundManager Instance { get; private set; }
@@ -34,23 +39,22 @@ public class SoundManager : MonoBehaviour
     private void TrashCounter_OnAnyObjectTrashed(object sender, System.EventArgs e)
     {
         TrashCounter trashCounter = sender as TrashCounter;
-        PlaySound(audioRefsSO.trash, trashCounter.transform.position);
+        PlaySound(trash);
     }
 
     private void BaseCounter_OnAnyObjectPlacedHere(object sender, System.EventArgs e)
     {
-        BaseCounter baseCounter = sender as BaseCounter;
-        PlaySound(audioRefsSO.objectDrop, baseCounter.transform.position);
+        PlaySound(objectDrop);
     }
 
     private void Player_OnPickSomething(object sender, System.EventArgs e)
     {
-        PlaySound(audioRefsSO.objectPickUp, Vector3.zero);
+        PlaySound(objectPickUp);
     }
 
-    private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioSource[] audioSource)
     {
-        PlaySound(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
+        audioSource[Random.Range(0, audioSource.Length)].Play();
     }
 
     private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)
@@ -58,19 +62,14 @@ public class SoundManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(audioClip, position, volume);
     }
 
-    public void PlayFootstepsSound(Vector3 position, float volumeMultiplier)
-    {
-        PlaySound(audioRefsSO.footSteps, position, volumeMultiplier * volume);
-    }
-
     public void PlayCountdownSound()
     {
-        PlaySound(audioRefsSO.warning, Vector3.zero);
+        PlaySound(warning);
     }
 
-    public void PlayWarningSound(Vector3 position)
+    public void PlayWarningSound()
     {
-        PlaySound(audioRefsSO.warning, position);
+        PlaySound(warning);
     }
 
     public void ChangeVolume()

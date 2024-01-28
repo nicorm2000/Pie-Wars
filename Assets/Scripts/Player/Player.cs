@@ -180,6 +180,8 @@ public class Player : MonoBehaviour, IIngredientObjectParent
             targetVelocity = moveDir * MoveSpeed * moveSpeedMultiplier;
         }
 
+        isWalking = Math.Abs(moveDir.x) + Math.Abs(moveDir.z) > 0;
+
         Vector3 velocityChange = targetVelocity - rb.velocity;
 
         if (isSlipper)

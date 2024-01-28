@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerSFX : MonoBehaviour
 {
+    [SerializeField] private AudioSource[] footsteps = null;
     [SerializeField] private float footstepTimerMax;
     [SerializeField] private float footstepVolume;
 
@@ -23,7 +24,7 @@ public class PlayerSFX : MonoBehaviour
 
             if (player.IsWalking())
             {
-                SoundManager.Instance.PlayFootstepsSound(player.transform.position, footstepVolume);
+                footsteps[Random.Range(0, footsteps.Length)].Play();
             }
         }
     }
