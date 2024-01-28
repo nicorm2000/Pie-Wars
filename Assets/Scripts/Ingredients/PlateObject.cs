@@ -52,26 +52,30 @@ public class PlateObject : IngredientObject
 
         if (playerThrower % 2 != 0)
         {
-            //Is thrown by team red
-            //if (collision.gameObject.GetComponent<Player>().GetPlayerNumber() % 2 == 0)
-            //{
-            //    //Hitted an Enemy
-            //}
-            //else
-            //{
-            //    //Hitted an Ally
-            //}
+            //Is thrown by team blue
+            if (collision.gameObject.GetComponent<Player>().playerNumber % 2 == 0)
+            {
+                //Hitted an Enemy
+                GameManager.Instance.AddPoints(GameManager.Team.Blue, 1);
+            }
+            else
+            {
+                GameManager.Instance.AddPoints(GameManager.Team.Blue, -1);
+                //Hitted an Ally
+            }
         }
         else
         {
-            //if (collision.gameObject.GetComponent<Player>().GetPlayerNumber() % 2 == 0)
-            //{
-            //    //Hitted an Ally
-            //}
-            //else
-            //{
-            //    //Hitted an Enemy
-            //}
+            if (collision.gameObject.GetComponent<Player>().playerNumber % 2 != 0)
+            {
+                //Hitted an Enemy
+                GameManager.Instance.AddPoints(GameManager.Team.Red, 1);
+            }
+            else
+            {
+                //Hitted an Ally
+                GameManager.Instance.AddPoints(GameManager.Team.Red, -1);
+            }
         }
     }
 }

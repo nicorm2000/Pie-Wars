@@ -34,6 +34,7 @@ public class Player : MonoBehaviour, IIngredientObjectParent
     private IngredientObject ingredientObject;
     public Rigidbody rb;
 
+    public int playerNumber;
     private void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
@@ -86,7 +87,7 @@ public class Player : MonoBehaviour, IIngredientObjectParent
 
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
-            Debug.Log(raycastHit.transform.gameObject.name);
+            //Debug.Log(raycastHit.transform.gameObject.name);
             if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
             {
                 if (baseCounter != selectedCounter)

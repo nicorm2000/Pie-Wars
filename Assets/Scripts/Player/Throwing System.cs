@@ -48,7 +48,7 @@ public class ThrowingSystem : MonoBehaviour
         {
             //Add GetPlayerNumber to Player.cs
             //plateObject.SetPlayerThrower(GetComponent<Player>().GetPlayerNumber());
-            plateObject.SetPlayerThrower(1);
+            plateObject.SetPlayerThrower(GetComponent<Player>().playerNumber);
             plateObject.isFlying = true;
         }
 

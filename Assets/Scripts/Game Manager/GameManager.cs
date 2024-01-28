@@ -12,13 +12,26 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
 
-
+    public int blueTeamPoints = 0;
+    public int redTeamPoints = 0;
+    private WinnerTeam winnerTeam = WinnerTeam.Tie;
     private enum GameState
     {
         WaitingToStart,
         CountdownToStart,
         GamePlaying,
         GameOver
+    }
+    private enum WinnerTeam
+    {
+        BlueTeam,
+        RedTeam,
+        Tie
+    }
+    public enum Team
+    {
+        Blue,
+        Red
     }
 
     [Header("Game Set Up")]
@@ -36,20 +49,20 @@ public class GameManager : MonoBehaviour
     public Material[] Skins => skins;
 
     private void Awake()
-    {        
+    {
         if (Instance != null && Instance != this)
-        { 
+        {
             DestroyImmediate(gameObject);
             return;
         }
-        else 
+        else
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
             gameState = GameState.WaitingToStart;
 
-            SceneManager.sceneLoaded += 
-                (scene, mode) => 
+            SceneManager.sceneLoaded +=
+                (scene, mode) =>
                 {
                     if (scene.name == Loader.Scene.Level.ToString())
                     {
@@ -86,18 +99,19 @@ public class GameManager : MonoBehaviour
             {
                 PlayerInput p = PlayerInput.Instantiate(playerPrefab, controlScheme: "Keyboard", pairWithDevice: Keyboard.current);
                 p.SwitchCurrentActionMap("Player" + ((int)playersInputsType[i] - 1 == 0 ? "" : (int)playersInputsType[i] - 1));
-                
+
 
                 GameInput gi = p.GetComponent<GameInput>();
 
                 gi.OnInteractAction += GameInput_OnInteractAction;
                 gi.SetInputType(playersInputsType[i]);
-                
+
                 player = p.gameObject;
             }
 
             player.transform.position = spawnPoints[i].position;
             player.transform.rotation = spawnPoints[i].rotation;
+            player.GetComponent<Player>().playerNumber = i + 1;
             player.GetComponentInChildren<PlayerSkinManager>().ChangeMaterial(skins[i]);
         }
     }
@@ -122,7 +136,7 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.WaitingToStart:
-                    
+
                 break;
             case GameState.CountdownToStart:
                 countdownToStartTimer -= Time.deltaTime;
@@ -139,11 +153,30 @@ public class GameManager : MonoBehaviour
 
                 if (gamePlayingTimer < 0f)
                 {
+                    if (blueTeamPoints == redTeamPoints)
+                        winnerTeam = WinnerTeam.Tie;
+                    else if (blueTeamPoints > redTeamPoints)
+                        winnerTeam = WinnerTeam.BlueTeam;
+                    else
+                        winnerTeam = WinnerTeam.RedTeam;
+
                     gameState = GameState.GameOver;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case GameState.GameOver:
+                switch (winnerTeam)
+                {
+                    case WinnerTeam.BlueTeam:
+                        Debug.Log("Blue Wins");
+                        break;
+                    case WinnerTeam.RedTeam:
+                        Debug.Log("Red Wins");
+                        break;
+                    case WinnerTeam.Tie:
+                        Debug.Log("Tie");
+                        break;
+                }
                 break;
         }
     }
@@ -187,5 +220,13 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1f;
             OnGameUnpaused?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public void AddPoints(Team team, int pointsToSum)
+    {
+        if (team == Team.Blue)
+            blueTeamPoints += pointsToSum;
+        else
+            redTeamPoints += pointsToSum;
     }
 }
