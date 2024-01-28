@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public int blueTeamPoints = 0;
     public int redTeamPoints = 0;
-    private WinnerTeam winnerTeam = WinnerTeam.Tie;
+    public WinnerTeam winnerTeam = WinnerTeam.Tie;
     private enum GameState
     {
         WaitingToStart,
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         GamePlaying,
         GameOver
     }
-    private enum WinnerTeam
+    public enum WinnerTeam
     {
         BlueTeam,
         RedTeam,
@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
                 switch (winnerTeam)
                 {
                     case WinnerTeam.BlueTeam:
+
                         Debug.Log("Blue Wins");
                         break;
                     case WinnerTeam.RedTeam:

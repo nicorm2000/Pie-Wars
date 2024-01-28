@@ -1,8 +1,10 @@
 using System;
 using UnityEngine;
+using TMPro;
 
 public class GameOverUI : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI winnerText;
     private void Start()
     {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
@@ -14,6 +16,21 @@ public class GameOverUI : MonoBehaviour
     {
         if (GameManager.Instance.IsGameOver())
         {
+            if (GameManager.Instance.winnerTeam == GameManager.WinnerTeam.Tie)
+            {
+                winnerText.text = "It's a Tie!";
+                winnerText.color = Color.grey;
+            }
+            else if (GameManager.Instance.winnerTeam == GameManager.WinnerTeam.RedTeam)
+            {
+                winnerText.text = "Red Team Wins!";
+                winnerText.color = Color.red;
+            }
+            else
+            {
+                winnerText.text = "Blue Team Wins!";
+                winnerText.color = Color.blue;
+            }
             Show();
         }
         else
