@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum PLAYER_INPUT { UNDEFINED, WASD, ARROWS, GAMEPAD }
+public enum PLAYER_INPUT { UNDEFINED, WASD, ARROWS, IJKL, NUMPAD }
 public class GameInput : MonoBehaviour
 {
     private const string PLAYER_PREFS_BINDINGS = "InputBindings";
@@ -88,8 +88,11 @@ public class GameInput : MonoBehaviour
             case PLAYER_INPUT.ARROWS:
                 playerInputActions.Player1.Enable();
                 break;
-            case PLAYER_INPUT.GAMEPAD:
+            case PLAYER_INPUT.IJKL:
                 playerInputActions.Player2.Enable();
+                break;
+            case PLAYER_INPUT.NUMPAD:
+                playerInputActions.Player3.Enable();
                 break;
             default:
                 break;
@@ -134,7 +137,7 @@ public class GameInput : MonoBehaviour
                     default:
                         return playerInputActions.Player1.Interact;
                 }
-            case PLAYER_INPUT.GAMEPAD:
+            case PLAYER_INPUT.IJKL:
                 switch (action)
                 {
                     case Input_Action.Move:
@@ -147,6 +150,20 @@ public class GameInput : MonoBehaviour
                         return playerInputActions.Player2.Pause;
                     default:
                         return playerInputActions.Player2.Interact;
+                }
+            case PLAYER_INPUT.NUMPAD:
+                switch (action)
+                {
+                    case Input_Action.Move:
+                        return playerInputActions.Player3.Move;
+                    case Input_Action.Interact:
+                        return playerInputActions.Player3.Interact;
+                    case Input_Action.InteractAlternate:
+                        return playerInputActions.Player3.InteractAlternate;
+                    case Input_Action.Pause:
+                        return playerInputActions.Player3.Pause;
+                    default:
+                        return playerInputActions.Player3.Interact;
                 }
             default:
                 return null;
@@ -164,44 +181,23 @@ public class GameInput : MonoBehaviour
 
     public string GetBindingText(Binding binding)
     {
-        if (inputType == PLAYER_INPUT.GAMEPAD)
+        switch (binding)
         {
-            switch (binding)
-            {
-                default:
-                case Binding.Move_Up:
-                case Binding.Move_Down:
-                case Binding.Move_Left:
-                case Binding.Move_Right:
-                    return GetInputAction(Input_Action.Move).bindings[0].ToDisplayString();
-                case Binding.Interact:
-                    return GetInputAction(Input_Action.Interact).bindings[0].ToDisplayString();
-                case Binding.InteractAlternate:
-                    return GetInputAction(Input_Action.InteractAlternate).bindings[0].ToDisplayString();
-                case Binding.Pause:
-                    return GetInputAction(Input_Action.Pause).bindings[0].ToDisplayString();
-            }
+            default:
+            case Binding.Move_Up:
+                return GetInputAction(Input_Action.Move).bindings[1].ToDisplayString();
+            case Binding.Move_Down:
+                return GetInputAction(Input_Action.Move).bindings[2].ToDisplayString();
+            case Binding.Move_Left:
+                return GetInputAction(Input_Action.Move).bindings[3].ToDisplayString();
+            case Binding.Move_Right:
+                return GetInputAction(Input_Action.Move).bindings[4].ToDisplayString();
+            case Binding.Interact:
+                return GetInputAction(Input_Action.Interact).bindings[0].ToDisplayString();
+            case Binding.InteractAlternate:
+                return GetInputAction(Input_Action.InteractAlternate).bindings[0].ToDisplayString();
+            case Binding.Pause:
+                return GetInputAction(Input_Action.Pause).bindings[0].ToDisplayString();
         }
-        else
-        {
-            switch (binding)
-            {
-                default:
-                case Binding.Move_Up:
-                    return GetInputAction(Input_Action.Move).bindings[1].ToDisplayString();
-                case Binding.Move_Down:
-                    return GetInputAction(Input_Action.Move).bindings[2].ToDisplayString();
-                case Binding.Move_Left:
-                    return GetInputAction(Input_Action.Move).bindings[3].ToDisplayString();
-                case Binding.Move_Right:
-                    return GetInputAction(Input_Action.Move).bindings[4].ToDisplayString();
-                case Binding.Interact:
-                    return GetInputAction(Input_Action.Interact).bindings[0].ToDisplayString();
-                case Binding.InteractAlternate:
-                    return GetInputAction(Input_Action.InteractAlternate).bindings[0].ToDisplayString();
-                case Binding.Pause:
-                    return GetInputAction(Input_Action.Pause).bindings[0].ToDisplayString();
-            }
-        }        
     }
 }

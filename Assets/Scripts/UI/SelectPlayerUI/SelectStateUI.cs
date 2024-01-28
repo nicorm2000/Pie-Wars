@@ -25,7 +25,7 @@ public class SelectStateUI : MonoBehaviour
 
         InputAction moveAction = GetMoveAction();
 
-        txtPressToSelect.text = "Press " + moveAction.bindings[input == PLAYER_INPUT.GAMEPAD ? 0 : 1].ToDisplayString() + " to Select";
+        txtPressToSelect.text = "Press " + moveAction.bindings[1].ToDisplayString() + " to Select";
         ToggleState(false);
 
         moveAction.performed += SetSelected;
