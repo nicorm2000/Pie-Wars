@@ -1,10 +1,19 @@
 using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI winnerText;
+    [SerializeField] private Button mainMenuButton;
+    private void Awake()
+    {
+        mainMenuButton.onClick.AddListener(() =>
+        {
+            Loader.Load(Loader.Scene.MainMenu);
+        });
+    }
     private void Start()
     {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
