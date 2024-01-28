@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InteractAlternate",
-                    "type": "Button",
-                    "id": "60ebfc1c-f5c7-413f-8d29-cdf1ac986219",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "1b83e68d-9865-4e65-ae26-490299d84a40",
@@ -120,23 +111,23 @@
                 },
                 {
                     "name": "",
-                    "id": "e2f7ec12-d6b4-45f4-9957-84486f22561c",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "InteractAlternate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ad8b0c81-1ac0-4628-ab22-c9a345191bb5",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84ac7e81-785c-4950-8ba0-c466f55c19e8",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -159,15 +150,6 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "fc82280a-46d4-4757-95ec-ae369304639f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "InteractAlternate",
-                    "type": "Button",
-                    "id": "69ceda9f-088c-49ea-a6bb-0594ffacf396",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -261,23 +243,23 @@
                 },
                 {
                     "name": "",
-                    "id": "c354cd42-5ce7-48c9-8241-f72678aed983",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "InteractAlternate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b9aa9c79-567f-429b-b8d4-c1be9fd779c2",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab45c2c9-f417-4be6-aa80-1a0197e82c72",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -300,15 +282,6 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "60ccf098-d216-4716-98c7-6b6a76aa1ce9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "InteractAlternate",
-                    "type": "Button",
-                    "id": "d3e71163-a036-402f-ab9d-a481d4f7f542",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -402,23 +375,23 @@
                 },
                 {
                     "name": "",
-                    "id": "bcf09ef2-a259-4d97-865c-4c917a4a98b4",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "InteractAlternate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ee54eea0-49f1-400a-a2de-7301c386d7f7",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a43256b-b47d-4078-99a7-27d58190e6b8",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -441,15 +414,6 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "86238195-d3d0-4f59-8f7e-bd57e62f27e5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "InteractAlternate",
-                    "type": "Button",
-                    "id": "390c1a16-fb15-42b6-9563-6b2fceb1aad0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -543,23 +507,23 @@
                 },
                 {
                     "name": "",
-                    "id": "1edc95fe-77cb-4720-b885-126c99b4d211",
-                    "path": "<Keyboard>/numpad9",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "InteractAlternate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "915b2122-7f52-4580-aa0c-2f5b66f6c7fa",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7483b375-513d-4457-a306-44c97ca92575",
+                    "path": "<Keyboard>/numpad9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
