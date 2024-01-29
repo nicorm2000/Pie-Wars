@@ -2557,9 +2557,9 @@ MonoBehaviour:
     type: 3}
   skins:
   - {fileID: 2100000, guid: 0d9878d2ec740b34d835c8fb34349524, type: 2}
-  - {fileID: 2100000, guid: 3db6e967d4d4c4b4095f6fddc22dc166, type: 2}
   - {fileID: 2100000, guid: 5f0e0501b480dc24ba8e69f8b713dfcb, type: 2}
   - {fileID: 2100000, guid: 21fd2904db0dac647b35d58fc4437e9e, type: 2}
+  - {fileID: 2100000, guid: 3db6e967d4d4c4b4095f6fddc22dc166, type: 2}
 --- !u!4 &1771472344
 Transform:
   m_ObjectHideFlags: 0
@@ -3002,8 +3002,8 @@ MonoBehaviour:
   - {fileID: 2124232106703636306}
   holders2v2:
   - {fileID: 695803868061845686}
-  - {fileID: 3845906438587903117}
   - {fileID: 5547127275790385959}
+  - {fileID: 3845906438587903117}
   - {fileID: 7935559132469460235}
   playerPrefab: {fileID: 5469101779377713029, guid: ece27ba9b1740434c97cabc9dcebaa87,
     type: 3}
