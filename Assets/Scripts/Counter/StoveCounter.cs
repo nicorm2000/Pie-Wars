@@ -27,6 +27,7 @@ public class StoveCounter : BaseCounter, IHasProgress
     private CookingRecipeSO cookingRecipeSO;
     private BurningRecipeSO burningRecipeSO;
     private PlateObject plateInput;
+    private PlateObject cookedPie;
     [SerializeField] private IngredientsSO pieDough;
     private void Start()
     {
@@ -54,9 +55,9 @@ public class StoveCounter : BaseCounter, IHasProgress
                         //Cooked
                         GetIngredientObject().DestoySelf();
 
-                        plateInput.ChangePlateState();
+                        plateInput.ChangePlateState(false);
 
-                        IngredientObject.SpawnIngredientObject(plateInput, this);
+                        cookedPie = PlateObject.SpawnPlateObject(plateInput, this);
 
 
                         cookingState = CookingState.Cooked;
@@ -79,16 +80,21 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                     if (burningTimer > burningRecipeSO.burningTimerMax)
                     {
-                        //Cooked
+                        //Burned
                         GetIngredientObject().DestoySelf();
 
-                        IngredientObject ingredient = IngredientObject.SpawnIngredientObject(burningRecipeSO.output, this);
-                        PlateObject plateIngredient = ingredient.GetComponent<PlateObject>();
+                        cookedPie.ChangePlateState(true);
 
-                        if(plateIngredient)
-                        {
-                            plateIngredient.ChangePlateState();
-                        }
+                        PlateObject.SpawnPlateObject(cookedPie, this);
+
+                        //plateInput.ChangePlateState(true);
+                        //IngredientObject ingredient = IngredientObject.SpawnIngredientObject(burningRecipeSO.output, this);
+                        //PlateObject plateIngredient = ingredient.GetComponent<PlateObject>();
+
+                        //if(plateInput)
+                        //{
+                        //    plateInput.ChangePlateState(true);
+                        //}
 
                         cookingState = CookingState.Burned;
 

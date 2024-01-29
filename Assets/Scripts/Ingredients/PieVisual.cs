@@ -31,7 +31,6 @@ public class PieVisual : MonoBehaviour
             {
                 ingredient.gameObject.SetActive(true);
             }
-
         }
     }
 }

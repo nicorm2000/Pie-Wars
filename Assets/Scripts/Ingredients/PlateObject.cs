@@ -9,7 +9,7 @@ public class PlateObject : IngredientObject
 
     int playerThrower;
 
-    [SerializeField] private GameObject pieCompleto, plate;
+    [SerializeField] private GameObject bananaPieComplete, blueberriesPieComplete, pieOfCreamComplete, plate, plateWithDough;
     public class OnIngredientAddedArgs : EventArgs
     {
         public IngredientsSO ingredientSO;
@@ -20,13 +20,35 @@ public class PlateObject : IngredientObject
     public bool isCompleted = false;
     [SerializeField] public int pieIngredientsQuantity = 2;
 
-    public void ChangePlateState()
+    [SerializeField] private IngredientsSO banana, blueberries, cream, dough;
+    [SerializeField] private Material normal, cooked, burned;
+
+    public void ChangePlateState(bool isBurned)
     {
-        plate.SetActive(false);
-        pieCompleto.SetActive(true);
-        isCompleted = true;
+        //plate.SetActive(false);
+
+        //if (ingredientObjectSOList.Contains(banana))
+        //    bananaPieComplete.SetActive(true);
+        //else if (ingredientObjectSOList.Contains(blueberries))
+        //    blueberriesPieComplete.SetActive(true);
+        //else if (ingredientObjectSOList.Contains(cream))
+        //    pieOfCreamComplete.SetActive(true);
+        if (isBurned)
+        {
+            isCompleted = false;
+            bananaPieComplete.gameObject.transform.Find("Mix").GetComponent<MeshRenderer>().material = burned;
+            blueberriesPieComplete.gameObject.transform.Find("Mix").GetComponent<MeshRenderer>().material = burned;
+            pieOfCreamComplete.gameObject.transform.Find("Mix").GetComponent<MeshRenderer>().material = burned;
+        }
+        else
+        {
+            isCompleted = true;
+            bananaPieComplete.gameObject.transform.Find("Mix").GetComponent<MeshRenderer>().material = cooked;
+            blueberriesPieComplete.gameObject.transform.Find("Mix").GetComponent<MeshRenderer>().material = cooked;
+            pieOfCreamComplete.gameObject.transform.Find("Mix").GetComponent<MeshRenderer>().material = cooked;
+        }
     }
-    
+
     public bool TryAddIngredient(IngredientsSO ingredient)
     {
         if (!validIngredients.Contains(ingredient))
@@ -36,18 +58,58 @@ public class PlateObject : IngredientObject
         if (ingredientObjectSOList.Count >= pieIngredientsQuantity)
             return false;
 
+        if (ingredientObjectSOList.Contains(dough))
+        {
+            plateWithDough.SetActive(false);
+
+            if (ingredient == banana)
+                bananaPieComplete.SetActive(true);
+            else if (ingredient == blueberries)
+                blueberriesPieComplete.SetActive(true);
+            else if (ingredient == cream)
+                pieOfCreamComplete.SetActive(true);
+        }
+        else
+        {
+            OnIngredientAdded?.Invoke(this, new OnIngredientAddedArgs
+            {
+                ingredientSO = ingredient
+            });
+        }
         ingredientObjectSOList.Add(ingredient);
 
-        OnIngredientAdded?.Invoke(this, new OnIngredientAddedArgs
+        if (ingredient == dough)
         {
-            ingredientSO = ingredient
-        });
+            plate.SetActive(false);
+
+            if (ingredientObjectSOList.Count == 1)
+                plateWithDough.SetActive(true);
+            else
+            {
+                if (ingredientObjectSOList.Contains(banana))
+                    bananaPieComplete.SetActive(true);
+                else if (ingredientObjectSOList.Contains(blueberries))
+                    blueberriesPieComplete.SetActive(true);
+                else if (ingredientObjectSOList.Contains(cream))
+                    pieOfCreamComplete.SetActive(true);
+
+                transform.GetComponentInChildren<PieVisual>().gameObject.SetActive(false);
+            }
+        }
+
+
+
         return true;
     }
 
     public bool GetPieStatus()
     {
         return isCompleted;
+    }
+
+    public IngredientsSO GetDough()
+    {
+        return dough;
     }
 
     public void SetPlayerThrower(int player)
@@ -98,5 +160,14 @@ public class PlateObject : IngredientObject
             }
         }
         //this.gameObject.layer = 9;
+    }
+
+    public static PlateObject SpawnPlateObject(PlateObject ingredientsSO, IIngredientObjectParent ingredientObjectParent)
+    {
+        Transform ingredientTransform = Instantiate(ingredientsSO).transform;
+        PlateObject ingredientObject = ingredientTransform.GetComponent<PlateObject>();
+        ingredientObject.SetIngredientObjectParent(ingredientObjectParent);
+
+        return ingredientObject;
     }
 }
