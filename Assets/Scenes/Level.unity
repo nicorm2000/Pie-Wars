@@ -26565,7 +26565,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ingredient
       value: 
-      objectReference: {fileID: 11400000, guid: 606ffc65af7200141a7b5978ac13980f,
+      objectReference: {fileID: 11400000, guid: 77da00d901c0b154ea1d500bf018cd68,
         type: 2}
     - target: {fileID: 4583633342542960543, guid: 0fc273996a307934e9d8aef2df3b4957,
         type: 3}
