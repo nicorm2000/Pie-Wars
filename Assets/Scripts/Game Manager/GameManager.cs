@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public int blueTeamPoints = 0;
     public int redTeamPoints = 0;
     public WinnerTeam winnerTeam = WinnerTeam.Tie;
-    private enum GameState
+    public enum GameState
     {
         WaitingToStart,
         CountdownToStart,
@@ -229,5 +229,10 @@ public class GameManager : MonoBehaviour
             blueTeamPoints += pointsToSum;
         else
             redTeamPoints += pointsToSum;
+    }
+
+    public GameState GetGameState()
+    {
+        return gameState;
     }
 }
