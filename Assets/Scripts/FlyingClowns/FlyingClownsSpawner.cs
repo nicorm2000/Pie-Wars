@@ -6,6 +6,7 @@ public class FlyingClownsSpawner : MonoBehaviour
 {
 
     [SerializeField] private GameObject cannon, cannon2;
+    [SerializeField] private Transform shootingPoint, shootingPoint2;
     [SerializeField] private GameObject[] clownPrefabs;
     // Start is called before the first frame update
 
@@ -31,7 +32,10 @@ public class FlyingClownsSpawner : MonoBehaviour
 
     private void ShootClowns()
     {
-        Instantiate(clownPrefabs[Random.Range(0, clownPrefabs.Length)],cannon.transform.position, cannon.transform.rotation, cannon.transform);
-        Instantiate(clownPrefabs[Random.Range(0, clownPrefabs.Length)], cannon2.transform.position, cannon2.transform.rotation, cannon2.transform);
+        Instantiate(clownPrefabs[Random.Range(0, clownPrefabs.Length)], shootingPoint.transform.position, shootingPoint.transform.rotation);
+        Instantiate(clownPrefabs[Random.Range(0, clownPrefabs.Length)], shootingPoint2.transform.position, shootingPoint2.transform.rotation);
+
+        cannon.transform.Find("Explosion").GetComponent<ParticleSystem>().Play();
+        cannon2.transform.Find("Explosion").GetComponent<ParticleSystem>().Play();
     }
 }
