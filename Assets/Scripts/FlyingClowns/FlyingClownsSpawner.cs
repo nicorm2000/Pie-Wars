@@ -46,5 +46,7 @@ public class FlyingClownsSpawner : MonoBehaviour
 
         cannon.transform.Find("Explosion").GetComponent<ParticleSystem>().Play();
         cannon2.transform.Find("Explosion").GetComponent<ParticleSystem>().Play();
+        cannon.transform.Find("Explosion").GetComponent<AudioSource>().Play();
+        cannon2.transform.Find("Explosion").GetComponent<AudioSource>().Play();
     }
 }
