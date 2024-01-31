@@ -14,12 +14,21 @@ public class FlyingClownsSpawner : MonoBehaviour
     [SerializeField] int maxTimeBetweenClowns;
     private float randomTimer = 0;
 
+    private int playersReady = 0;
     void Update()
     {
         if (randomTimer == 0)
         {
             randomTimer = Random.Range(minTimeBetweenClowns, maxTimeBetweenClowns);
             StartCoroutine(ClownCoolDown());
+        }
+        if (FindObjectOfType<SelectPlayersManager>() != null)
+        {
+            if (FindObjectOfType<SelectPlayersManager>().GetPlayersReady() > playersReady)
+            {
+                playersReady = FindObjectOfType<SelectPlayersManager>().GetPlayersReady();
+                ShootClowns();
+            }
         }
     }
 

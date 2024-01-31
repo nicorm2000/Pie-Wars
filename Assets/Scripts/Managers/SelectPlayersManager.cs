@@ -59,4 +59,9 @@ public class SelectPlayersManager : MonoBehaviour
 
         playersReady++;
     }
+
+    public int GetPlayersReady()
+    {
+        return playersReady;
+    }
 }
