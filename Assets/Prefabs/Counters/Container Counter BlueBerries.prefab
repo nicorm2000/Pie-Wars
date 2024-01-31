@@ -153,6 +153,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Container Counter BlueBerries
       objectReference: {fileID: 0}
+    - target: {fileID: 5044992192776810265, guid: 0fc273996a307934e9d8aef2df3b4957,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 576e10ceef3bfe04cba44884e5e5cf98,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
