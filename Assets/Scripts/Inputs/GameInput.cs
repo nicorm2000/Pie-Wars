@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public enum PLAYER_INPUT { UNDEFINED, WASD, ARROWS, IJKL, NUMPAD }
 public class GameInput : MonoBehaviour
 {
+    public static GameInput Instance { get; private set; }
+
     private const string PLAYER_PREFS_BINDINGS = "InputBindings";
 
     private PlayerInputActions playerInputActions;
@@ -17,27 +19,27 @@ public class GameInput : MonoBehaviour
     public static event EventHandler OnPauseAction;
 
     public enum Binding
-    { 
-        Move_Up, 
-        Move_Down, 
-        Move_Left, 
-        Move_Right, 
+    {
+        Move_Up,
+        Move_Down,
+        Move_Left,
+        Move_Right,
         Interact,
-        Throw, 
+        Throw,
         Pause
     }
 
     public enum Input_Action
     {
         Move,
-		Throw,
+        Throw,
         Interact,
         Pause
     }
 
-    private void Pause_performed(InputAction.CallbackContext obj)
+    private static void Pause_performed(InputAction.CallbackContext obj)
     {
-        OnPauseAction?.Invoke(this, EventArgs.Empty);
+        OnPauseAction?.Invoke(GameInput.Instance, EventArgs.Empty);
     }
 
     private void InteractAlternate_performed(InputAction.CallbackContext obj)
@@ -57,7 +59,7 @@ public class GameInput : MonoBehaviour
     private void Throw_canceled(InputAction.CallbackContext obj)
     {
         OnThrowCanceled?.Invoke(this, EventArgs.Empty);
-	}
+    }
 
     public void SetInputType(PLAYER_INPUT input)
     {
@@ -93,7 +95,7 @@ public class GameInput : MonoBehaviour
         GetInputAction(Input_Action.Interact).performed += Interact_performed;
         GetInputAction(Input_Action.Pause).performed += Pause_performed;
     }
-	
+
     public InputAction GetInputAction(Input_Action action)
     {
         switch (inputType)

@@ -74,6 +74,7 @@ public class OptionsUI : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
+        GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
 
         UpdateVisual();
 
@@ -85,7 +86,10 @@ public class OptionsUI : MonoBehaviour
     {
         Hide();
     }
-
+    private void GameManager_OnGameUnpaused(object sender, System.EventArgs e)
+    {
+        Hide();
+    }
     private void UpdateVisual()
     {
         SFXText.text = "SFX: " + Mathf.Round(SoundManager.Instance.GetVolume() * 10f);
